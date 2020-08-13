@@ -1,0 +1,8 @@
+name: sdScreenShare
+main: com.sudano.sdscreenshare.Main
+version: TESTES
+author: Sudano#0001
+description: Plugin simples de ScreenShare!
+commands:
+   ss:
+   screenshare:
