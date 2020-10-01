@@ -11,10 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.sudano.sdscreenshare.Main;
+import com.sudano.sdscreenshare.ScreenShare;
+import com.sudano.sdscreenshare.ScreenShareAPI;
 
-public class ScreenShare implements CommandExecutor {
-
-	public static ArrayList<Player> screenshare = new ArrayList<>();
+public class ScreenShareCmd implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -41,29 +41,33 @@ public class ScreenShare implements CommandExecutor {
 						if (mencionado.getName().equals(p.getName())) {
 							p.sendMessage("§cVocê não pode por a si mesmo na ScreenShare!");
 						} else {
-
-							if (screenshare.contains(mencionado.getPlayer())) {
-								screenshare.remove(mencionado.getPlayer());
+							if (ScreenShareAPI.hasScreenShare(mencionado)) {
+								ScreenShare ss = ScreenShareAPI.getScreenShare(mencionado);
+								ss.getPlayers().forEach(players -> players
+										.teleport(Bukkit.getWorld(Main.mundo_nome).getSpawnLocation()));
+								mencionado.sendMessage(Main.retirado_ss);
 								p.sendMessage(
 										"§cVocê removeu o jogador \"" + mencionado.getName() + "\" da ScreenShare!");
-								mencionado.teleport(Bukkit.getWorld(Main.mundo_nome).getSpawnLocation());
-								mencionado.sendMessage(Main.retirado_ss);
 
 								for (String s : Main.plugin.getConfig().getStringList("SaiuSS")) {
 									mencionado.sendMessage(s.replace("&", "§"));
 								}
-
 							} else {
-								screenshare.add(mencionado.getPlayer());
+								ScreenShare screenshare = new ScreenShare(Main.getScreenshares().size() + 1,
+										mencionado.getName());
+								ScreenShareAPI.setScreenShare(mencionado, screenshare);
+								screenshare.addPlayer(mencionado);
+								mencionado.sendMessage(Main.colocado_ss);
+								for (String s : Main.plugin.getConfig().getStringList("EntrouSS"))
+									mencionado.sendMessage(s.replace("&", "§"));
+
+								screenshare.addPlayer(p);
+								screenshare.addStaff(p.getName());
 								p.sendMessage(
 										"§cVocê colocou o jogador \"" + mencionado.getName() + "\" na ScreenShare!");
-								mencionado.teleport(Bukkit.getWorld(Main.mundoss_nome).getSpawnLocation());
-								mencionado.sendMessage(Main.colocado_ss);
-								p.teleport(mencionado.getPlayer().getLocation());
 
-								for (String s : Main.plugin.getConfig().getStringList("EntrouSS")) {
-									mencionado.sendMessage(s.replace("&", "§"));
-								}
+								screenshare.getPlayers().forEach(players -> mencionado
+										.teleport(Bukkit.getWorld(Main.mundoss_nome).getSpawnLocation()));
 							}
 						}
 					}
@@ -72,5 +76,4 @@ public class ScreenShare implements CommandExecutor {
 		}
 		return false;
 	}
-
 }
