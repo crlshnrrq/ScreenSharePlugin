@@ -2,61 +2,74 @@ package com.sudano.sdscreenshare;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public final class ScreenShare {
 
 	private final int id;
-	private final String suspect;
-	private final ArrayList<String> staffers;
-	private final ArrayList<Player> players;
+	private final String suspect, author;
+	private final ArrayList<String> spectators;
 
-	public ScreenShare(int id, String suspect) {
+	public ScreenShare(int id, String author, String suspect) {
 		this.id = id;
 		this.suspect = suspect;
-		this.staffers = new ArrayList<>();
-		this.players = new ArrayList<>();
+		this.author = author;
+		this.spectators = new ArrayList<>();
 	}
 
 	public int getID() {
 		return this.id;
 	}
 
+	public String getAuthor() {
+		return this.author;
+	}
+
 	public String getSuspect() {
 		return this.suspect;
 	}
 
-	public ArrayList<String> getStaffers() {
-		return this.staffers;
+	public ArrayList<String> getSpectators() {
+		return this.spectators;
 	}
 
-	public boolean hasStaff(String nickname) {
-		return this.getStaffers().contains(nickname);
+	public boolean hasSpectator(String spectator) {
+		return this.getSpectators().contains(spectator);
 	}
 
-	public void addStaff(String nickname) {
-		if (!hasStaff(nickname))
-			this.getStaffers().add(nickname);
+	public void addSpectators(String... spectators) {
+		for (String spectator : spectators)
+			this.addSpectator(spectator);
 	}
 
-	public void removeStaff(String nickname) {
-		this.getStaffers().remove(nickname);
+	public void addSpectator(String spectator) {
+		if (!hasSpectator(spectator))
+			this.getSpectators().add(spectator);
 	}
 
-	public ArrayList<Player> getPlayers() {
-		return this.players;
+	public void removeSpectators(String... spectators) {
+		for (String spectator : spectators)
+			this.removeSpectator(spectator);
 	}
 
-	public boolean hasPlayer(Player player) {
-		return this.getPlayers().contains(player);
+	public void removeSpectator(String spectator) {
+		this.getSpectators().remove(spectator);
 	}
 
-	public void addPlayer(Player player) {
-		if (!hasPlayer(player))
-			this.getPlayers().add(player);
+	public ArrayList<String> getAllPlayersInScreenShare() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.addAll(this.getSpectators());
+		list.add(this.getSuspect());
+		list.add(this.getAuthor());
+		return list;
 	}
 
-	public void removePlayer(Player player) {
-		this.getPlayers().remove(player);
+	public void announceMessage(String message) {
+		this.getAllPlayersInScreenShare().forEach(nickname -> {
+			Player player = Bukkit.getPlayer(nickname);
+			if (player != null)
+				player.sendMessage(message);
+		});
 	}
 }
