@@ -1,10 +1,17 @@
 # sdScreenShare
-Um plugin extremamente simples, mas 100% configur√°vel de ScreenShare!
+ Plugin Simples de ScreenShare.
 
-**Comandos**
-1. /ss
-2. /screenshare
 
-**Permiss√£o**
--
-screenshare.use
+**Novidades:**
+=
+ * Possui arquivo de configuraÁ„o.
+ * Sistema de ban autom·tico quando o jogador deslogar.
+
+**Comandos:**
+=
+ * /screenshare - Comando usado para puxar o Suspeito para ScreenShare.
+     * /ss
+
+**Permissıes:**
+=
+ * sdscreenshare.usar
