@@ -15,14 +15,14 @@ import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
 
 public final class ScreenSharePlugin {
 
-	private final JavaPlugin plugin;
+	private static JavaPlugin plugin;
 
-	public ScreenSharePlugin(JavaPlugin plugin) {
-		this.plugin = plugin;
+	public ScreenSharePlugin(JavaPlugin instance) {
+		plugin = instance;
 	}
 
-	public JavaPlugin getPlugin() {
-		return this.plugin;
+	public static JavaPlugin getPlugin() {
+		return plugin;
 	}
 
 	private static final ArrayList<ScreenShare> screenshares = new ArrayList<>();
@@ -50,19 +50,19 @@ public final class ScreenSharePlugin {
 
 	public void onEnable() {
 		PluginManager pm = Bukkit.getPluginManager();
-		pm.registerEvents(new ScreenShareSessionsGUI(), this.getPlugin());
-		pm.registerEvents(new ScreenShareInfoGUI(), this.getPlugin());
+		pm.registerEvents(new ScreenShareSessionsGUI(), getPlugin());
+		pm.registerEvents(new ScreenShareInfoGUI(), getPlugin());
 
-		pm.registerEvents(new ScreenShareListeners(), this.getPlugin());
+		pm.registerEvents(new ScreenShareListeners(), getPlugin());
 
-		this.getPlugin().getCommand("screenshare").setExecutor(new ScreenShareCommand());
+		getPlugin().getCommand("screenshare").setExecutor(new ScreenShareCommand());
 
-		Bukkit.getScheduler().runTaskTimer(this.getPlugin(),
+		Bukkit.getScheduler().runTaskTimer(getPlugin(),
 				() -> Bukkit.getPluginManager().callEvent(new TimeSecondEvent()), 20L, 20L);
 	}
 
 	public void onDisable() {
-		HandlerList.unregisterAll(this.getPlugin());
-		Bukkit.getScheduler().cancelTasks(this.getPlugin());
+		HandlerList.unregisterAll(getPlugin());
+		Bukkit.getScheduler().cancelTasks(getPlugin());
 	}
 }
