@@ -39,15 +39,6 @@ public final class ScreenShareInfoGUI implements Listener {
 		}
 	}
 
-	public static boolean openGUI(Player player, int id) {
-		ScreenShare ss = ScreenSharePlugin.getScreenShareByID(id);
-		if (ss != null) {
-			openGUI(player, ss);
-			return true;
-		}
-		return false;
-	}
-
 	public static boolean openGUI(Player player, String suspect) {
 		ScreenShare ss = ScreenSharePlugin.getScreenShareBySuspect(suspect);
 		if (ss != null) {
@@ -88,7 +79,7 @@ public final class ScreenShareInfoGUI implements Listener {
 			sair.setItemMeta(mSair);
 			inv.setItem(37, sair);
 		} else if (ScreenShareAPI.hasScreenShare(player)
-				&& ScreenShareAPI.getScreenShare(player).getID() == ss.getID()) {
+				&& ScreenShareAPI.getScreenShare(player).getSuspect().equals(ss.getSuspect())) {
 			ItemStack sair = new ItemStack(Material.ENDER_PEARL);
 			ItemMeta mSair = sair.getItemMeta();
 			mSair.setDisplayName("§cSair da ScreenShare");

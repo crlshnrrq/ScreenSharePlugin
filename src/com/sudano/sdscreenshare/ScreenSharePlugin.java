@@ -31,10 +31,6 @@ public final class ScreenSharePlugin {
 		return screenshares;
 	}
 
-	public static ScreenShare getScreenShareByID(int id) {
-		return getScreenshares().stream().filter(ss -> ss.getID() == id).findFirst().orElse(null);
-	}
-
 	public static ScreenShare getScreenShareBySuspect(String nickname) {
 		return getScreenshares().stream().filter(ss -> ss.getSuspect().equalsIgnoreCase(nickname)).findFirst()
 				.orElse(null);

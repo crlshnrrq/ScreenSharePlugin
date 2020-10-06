@@ -52,8 +52,7 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerScreenShareCreate(PlayerScreenShareCreateEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ss.announceMessage(
-				"§7(" + player.getName() + " criou a ScreenShare #" + (ss.getID() < 10 ? "0" : "") + ss.getID() + ")");
+		ss.announceMessage("§7(" + player.getName() + " criou a ScreenShare)");
 		player.sendMessage("§aVocê puxou §l" + ss.getSuspect() + " §apara uma §lSCREENSHARE§a!");
 	}
 
@@ -80,8 +79,7 @@ public class ScreenShareListeners implements Listener {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
 		player.sendMessage("§aVocê finalizou a §lSCREENSHARE §ade §l" + event.getScreenShare().getSuspect() + "§a!");
-		ss.announceMessage("§7(" + player.getName() + " finalizou a ScreenShare #" + (ss.getID() < 10 ? "0" : "")
-				+ ss.getID() + ")");
+		ss.announceMessage("§7(" + player.getName() + " finalizou a ScreenShare)");
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
@@ -110,8 +108,7 @@ public class ScreenShareListeners implements Listener {
 			ss.getAllPlayersInScreenShare().forEach(nickname -> {
 				Player players = Bukkit.getPlayer(nickname);
 				if (players != null)
-					players.sendMessage("§7(SS #" + (ss.getID() < 10 ? "0" : "") + ss.getID() + ") §r"
-							+ player.getDisplayName() + " §8» §r" + event.getMessage());
+					players.sendMessage("§7(SS) §r" + player.getDisplayName() + " §8» §r" + event.getMessage());
 			});
 		}
 	}

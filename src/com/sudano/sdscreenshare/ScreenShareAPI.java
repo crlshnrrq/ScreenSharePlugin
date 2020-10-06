@@ -39,7 +39,7 @@ public final class ScreenShareAPI {
 	}
 
 	public static void createScreenShare(Player author, Player suspect) {
-		ScreenShare ss = new ScreenShare(ScreenSharePlugin.getScreenshares().size() + 1, author.getName(), suspect.getName());
+		ScreenShare ss = new ScreenShare(author.getName(), suspect.getName());
 
 		Bukkit.getPluginManager().callEvent(new PlayerScreenShareCreateEvent(author, ss));
 

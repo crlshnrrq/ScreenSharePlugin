@@ -34,10 +34,15 @@ public final class ScreenShareSessionsGUI implements Listener {
 			if (display.equals("§aPágina Posterior"))
 				openGUI(player, page + 1);
 			if (display.startsWith("§6ScreenShare #")) {
-				int id = Integer.parseInt(display.replace("§6ScreenShare #", ""));
-				ScreenShare screenshare = ScreenSharePlugin.getScreenShareByID(id);
-				if (screenshare != null)
-					ScreenShareInfoGUI.openGUI(player, screenshare);
+				if (event.getCurrentItem().getItemMeta().hasLore()) {
+					event.getCurrentItem().getItemMeta().getLore().stream()
+							.filter(lines -> lines.startsWith("§7Suspeito: §c")).forEach(line -> {
+								ScreenShare ss = ScreenSharePlugin
+										.getScreenShareBySuspect(line.replace("§7Suspeito: §c", ""));
+								if (ss != null)
+									ScreenShareInfoGUI.openGUI(player, ss);
+							});
+				}
 			}
 		}
 	}
@@ -58,12 +63,12 @@ public final class ScreenShareSessionsGUI implements Listener {
 		}
 
 		for (int index = ((page - 1) * 45) + 1; index <= page * 45; index++) {
-			ScreenShare ss = ScreenSharePlugin.getScreenShareByID(index);
+			ScreenShare ss = ScreenSharePlugin.getScreenshares().get(index);
 			if (ss != null) {
 				ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 				SkullMeta mItem = (SkullMeta) item.getItemMeta();
 				mItem.setOwner(ss.getSuspect());
-				mItem.setDisplayName("§6ScreenShare #" + (ss.getID() < 10 ? "0" : "") + ss.getID());
+				mItem.setDisplayName("§6ScreenShare #" + (index < 10 ? "0" : "") + index);
 				ArrayList<String> lore = new ArrayList<>();
 				lore.add(" ");
 				lore.add("§7Suspeito: §c" + ss.getSuspect());
