@@ -7,19 +7,13 @@ import org.bukkit.entity.Player;
 
 public final class ScreenShare {
 
-	private final int id;
 	private final String suspect, author;
 	private final ArrayList<String> spectators;
 
-	public ScreenShare(int id, String author, String suspect) {
-		this.id = id;
+	public ScreenShare(String author, String suspect) {
 		this.suspect = suspect;
 		this.author = author;
 		this.spectators = new ArrayList<>();
-	}
-
-	public int getID() {
-		return this.id;
 	}
 
 	public String getAuthor() {
