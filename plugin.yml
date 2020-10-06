@@ -2,7 +2,7 @@ main: com.sudano.sdscreenshare.Main
 name: sdScreenShare
 version: develop
 authors: [Sudano#0001, crlshrrnq#2804]
-description: Vers„o 2.0 do Plugin sdScreenShare.
+description: Vers√£o 2.0 do Plugin sdScreenShare.
 commands:
    screenshare:
     aliases: [ss]
