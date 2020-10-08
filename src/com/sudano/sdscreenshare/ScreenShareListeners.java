@@ -39,20 +39,29 @@ public class ScreenShareListeners implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onTimeSecond(TimeSecondEvent event) {
-		Bukkit.getOnlinePlayers().stream().filter(player -> ScreenShareAPI.hasScreenShare(player))
-				.forEach(player -> Bukkit.getOnlinePlayers().forEach(players -> {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			for (Player players : Bukkit.getOnlinePlayers()) {
+				if (ScreenShareAPI.hasScreenShare(player)) {
 					if (ScreenShareAPI.getScreenShare(player).getAllPlayersInScreenShare().contains(players.getName()))
 						player.showPlayer(players);
 					else
 						player.hidePlayer(players);
-				}));
+				} else
+					player.showPlayer(players);
+			}
+		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerScreenShareCreate(PlayerScreenShareCreateEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ss.announceMessage("§7(" + player.getName() + " criou a ScreenShare)");
+		ss.message("§7(" + player.getName() + " criou a Sessão #" + ss.getID() + ")");
+		Bukkit.getOnlinePlayers().stream()
+				.filter(players -> !ss.getAllPlayersInScreenShare().contains(players.getName())
+						&& players.hasPermission("sdscreenshare.spy"))
+				.forEach(players -> players
+						.sendMessage("§7(" + player.getName() + " criou a Sessão #" + ss.getID() + ")"));
 		player.sendMessage("§aVocê puxou §l" + ss.getSuspect() + " §apara uma §lSCREENSHARE§a!");
 	}
 
@@ -70,7 +79,7 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerScreenShareJoin(PlayerScreenShareJoinEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ss.announceMessage("§7(" + player.getName() + " entrou na ScreenShare)");
+		ss.message("§7(" + player.getName() + " entrou na Sessão #" + ss.getID() + ")");
 		player.sendMessage("§aVocê entrou na ScreenShare de " + ss.getSuspect() + "!");
 	}
 
@@ -78,8 +87,13 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerScreenShareFinalize(PlayerScreenShareFinalizeEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
+		Bukkit.getOnlinePlayers().stream()
+				.filter(players -> !ss.getAllPlayersInScreenShare().contains(players.getName())
+						&& players.hasPermission("sdscreenshare.spy"))
+				.forEach(players -> players
+						.sendMessage("§7(" + player.getName() + " finalizou a Sessão #" + ss.getID() + ")"));
+		ss.message("§7(" + player.getName() + " finalizou a Sessão #" + ss.getID() + ")");
 		player.sendMessage("§aVocê finalizou a §lSCREENSHARE §ade §l" + event.getScreenShare().getSuspect() + "§a!");
-		ss.announceMessage("§7(" + player.getName() + " finalizou a ScreenShare)");
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
@@ -95,7 +109,7 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerScreenShareJoin(PlayerScreenShareQuitEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ss.announceMessage("§7(" + player.getName() + " saiu da ScreenShare)");
+		ss.message("§7(" + player.getName() + " saiu da Sessão #" + ss.getID() + ")");
 		player.sendMessage("§cVocê saiu da ScreenShare de " + ss.getSuspect() + "!");
 	}
 
@@ -105,11 +119,8 @@ public class ScreenShareListeners implements Listener {
 		if (ScreenShareAPI.hasScreenShare(player)) {
 			ScreenShare ss = ScreenShareAPI.getScreenShare(player);
 			event.setCancelled(true);
-			ss.getAllPlayersInScreenShare().forEach(nickname -> {
-				Player players = Bukkit.getPlayer(nickname);
-				if (players != null)
-					players.sendMessage("§7(SS) §r" + player.getDisplayName() + " §8» §r" + event.getMessage());
-			});
+			ss.message(player.getDisplayName() + " » " + event.getMessage(),
+					"§7(SS #" + ss.getID() + ") §r" + player.getDisplayName() + " §8» §r" + event.getMessage());
 		}
 	}
 
@@ -143,7 +154,7 @@ public class ScreenShareListeners implements Listener {
 		if (ScreenShareAPI.hasScreenShare(player)) {
 			ScreenShare ss = ScreenShareAPI.getScreenShare(player);
 			ScreenShareAPI.finalizeScreenShare(player, ss);
-			ss.announceMessage("§c" + player.getName() + " deslogou durante a ScreenShare!");
+			ss.message("§c" + player.getName() + " deslogou durante a ScreenShare!");
 		}
 	}
 
