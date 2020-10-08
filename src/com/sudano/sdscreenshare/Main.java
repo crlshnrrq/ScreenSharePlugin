@@ -13,13 +13,12 @@ public final class Main extends JavaPlugin {
 	@Override
 	public void onLoad() {
 		super.onLoad();
-		screenSharePlugin = new ScreenSharePlugin(this);
-		getScreenSharePlugin().onLoad();
 	}
 
 	@Override
 	public void onEnable() {
 		super.onEnable();
+		screenSharePlugin = new ScreenSharePlugin(this);
 		getScreenSharePlugin().onEnable();
 	}
 

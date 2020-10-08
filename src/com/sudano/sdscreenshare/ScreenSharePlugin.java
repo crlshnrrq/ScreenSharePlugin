@@ -31,6 +31,10 @@ public final class ScreenSharePlugin {
 		return screenshares;
 	}
 
+	public static ScreenShare getScreenShareById(String id) {
+		return getScreenshares().stream().filter(ss -> ss.getID().equals(id)).findFirst().orElse(null);
+	}
+
 	public static ScreenShare getScreenShareBySuspect(String nickname) {
 		return getScreenshares().stream().filter(ss -> ss.getSuspect().equalsIgnoreCase(nickname)).findFirst()
 				.orElse(null);
@@ -44,11 +48,9 @@ public final class ScreenSharePlugin {
 		return Bukkit.getWorld("world").getSpawnLocation();
 	}
 
-	public void onLoad() {
-		new WorldCreator("screenshare_world").createWorld();
-	}
-
 	public void onEnable() {
+		Bukkit.getServer().createWorld(new WorldCreator("screenshare_world"));
+
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new ScreenShareSessionsGUI(), getPlugin());
 		pm.registerEvents(new ScreenShareInfoGUI(), getPlugin());
