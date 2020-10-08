@@ -36,7 +36,7 @@ public final class ScreenShareSessionsGUI implements Listener {
 			if (display.startsWith("§6Sessão #")) {
 				ScreenShare ss = ScreenSharePlugin.getScreenShareById(display.replace("§6Sessão #", ""));
 				if (ss != null)
-					ScreenShareInfoGUI.openGUI(player, ss);
+					ScreenSharePlayerGUI.openGUI(player, ss);
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sudano.sdscreenshare.events.TimeSecondEvent;
-import com.sudano.sdscreenshare.guis.ScreenShareInfoGUI;
+import com.sudano.sdscreenshare.guis.ScreenSharePlayerGUI;
 import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
 
 public final class ScreenSharePlugin {
@@ -53,7 +53,7 @@ public final class ScreenSharePlugin {
 
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new ScreenShareSessionsGUI(), getPlugin());
-		pm.registerEvents(new ScreenShareInfoGUI(), getPlugin());
+		pm.registerEvents(new ScreenSharePlayerGUI(), getPlugin());
 
 		pm.registerEvents(new ScreenShareListeners(), getPlugin());
 

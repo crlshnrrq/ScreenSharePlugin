@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sudano.sdscreenshare.guis.ScreenShareInfoGUI;
+import com.sudano.sdscreenshare.guis.ScreenSharePlayerGUI;
 import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
 
 public final class ScreenShareCommand implements CommandExecutor {
@@ -25,7 +25,7 @@ public final class ScreenShareCommand implements CommandExecutor {
 							Player target = Bukkit.getPlayer(args[1]);
 							if (target != null) {
 								if (ScreenShareAPI.hasScreenShare(target)) {
-									ScreenShareInfoGUI.openGUI(player, target.getName());
+									ScreenSharePlayerGUI.openGUI(player, target.getName());
 									player.sendMessage(
 											"§aVocê abriu as Informações da ScreenShare de " + target.getName() + "!");
 								} else

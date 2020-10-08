@@ -17,7 +17,7 @@ import com.sudano.sdscreenshare.ScreenSharePlugin;
 import com.sudano.sdscreenshare.ScreenShare;
 import com.sudano.sdscreenshare.ScreenShareAPI;
 
-public final class ScreenShareInfoGUI implements Listener {
+public final class ScreenSharePlayerGUI implements Listener {
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
