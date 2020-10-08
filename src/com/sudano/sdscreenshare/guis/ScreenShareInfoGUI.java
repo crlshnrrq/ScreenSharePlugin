@@ -21,21 +21,27 @@ public final class ScreenShareInfoGUI implements Listener {
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
-		if (event.getWhoClicked() instanceof Player && event.getInventory().getName().startsWith("ScreenShare de ")
+		if (event.getWhoClicked() instanceof Player && event.getInventory().getName().startsWith("Sessão #")
 				&& event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta()
 				&& event.getCurrentItem().getItemMeta().hasDisplayName()) {
-			String suspect = event.getInventory().getName().replace("ScreenShare de ", "");
+			String id = event.getInventory().getName().replace("Sessão #", "");
 			String display = event.getCurrentItem().getItemMeta().getDisplayName();
-			ScreenShare ss = ScreenSharePlugin.getScreenShareBySuspect(suspect);
+			ScreenShare ss = ScreenSharePlugin.getScreenShareById(id);
 			Player player = (Player) event.getWhoClicked();
 			event.setCancelled(true);
 
-			if (display.equals("§aEntrar na ScreenShare"))
+			if (display.equals("§aEntrar na Sessão")) {
 				ScreenShareAPI.joinScreenShare(player, ss);
-			if (display.equals("§cSair da ScreenShare"))
+				player.closeInventory();
+			}
+			if (display.equals("§cSair da Sessão")) {
 				ScreenShareAPI.quitScreenShare(player, ss);
-			if (display.equals("§cFinalizar ScreenShare"))
+				player.closeInventory();
+			}
+			if (display.equals("§cFinalizar Sessão")) {
 				ScreenShareAPI.finalizeScreenShare(player, ss);
+				player.closeInventory();
+			}
 		}
 	}
 
@@ -49,7 +55,7 @@ public final class ScreenShareInfoGUI implements Listener {
 	}
 
 	public static void openGUI(Player player, ScreenShare ss) {
-		Inventory inv = Bukkit.createInventory(null, 54, "ScreenShare de " + ss.getSuspect());
+		Inventory inv = Bukkit.createInventory(null, 54, "Sessão #" + ss.getID());
 
 		ItemStack vidro = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta mVidro = vidro.getItemMeta();
@@ -72,7 +78,7 @@ public final class ScreenShareInfoGUI implements Listener {
 		if (ss.getAuthor().equalsIgnoreCase(player.getName())) {
 			ItemStack sair = new ItemStack(Material.ENDER_PEARL);
 			ItemMeta mSair = sair.getItemMeta();
-			mSair.setDisplayName("§7Sair da ScreenShare");
+			mSair.setDisplayName("§7Sair da Sessão");
 			ArrayList<String> lore = new ArrayList<>();
 			lore.add("§cO Autor da ScreenShare não pode sair da sessão");
 			mSair.setLore(lore);
@@ -82,18 +88,18 @@ public final class ScreenShareInfoGUI implements Listener {
 				&& ScreenShareAPI.getScreenShare(player).getSuspect().equals(ss.getSuspect())) {
 			ItemStack sair = new ItemStack(Material.ENDER_PEARL);
 			ItemMeta mSair = sair.getItemMeta();
-			mSair.setDisplayName("§cSair da ScreenShare");
+			mSair.setDisplayName("§cSair da Sessão");
 			ArrayList<String> lore = new ArrayList<>();
-			lore.add("§7Clique para sair da sessão");
+			lore.add("§7Clique para sair");
 			mSair.setLore(lore);
 			sair.setItemMeta(mSair);
 			inv.setItem(37, sair);
 		} else {
 			ItemStack entrar = new ItemStack(Material.EYE_OF_ENDER);
 			ItemMeta mEntrar = entrar.getItemMeta();
-			mEntrar.setDisplayName("§aEntrar na ScreenShare");
+			mEntrar.setDisplayName("§aEntrar na Sessão");
 			ArrayList<String> lore = new ArrayList<>();
-			lore.add("§7Clique para entrar na sessão");
+			lore.add("§7Clique para entrar");
 			mEntrar.setLore(lore);
 			entrar.setItemMeta(mEntrar);
 			inv.setItem(37, entrar);
@@ -102,16 +108,16 @@ public final class ScreenShareInfoGUI implements Listener {
 		if (ss.getAuthor().equalsIgnoreCase(player.getName()) || player.hasPermission("sdscreenshare.bypass")) {
 			ItemStack finalizar = new ItemStack(Material.INK_SACK, 1, (short) 1);
 			ItemMeta mFinalizar = finalizar.getItemMeta();
-			mFinalizar.setDisplayName("§cFinalizar ScreenShare");
+			mFinalizar.setDisplayName("§cFinalizar Sessão");
 			ArrayList<String> lore = new ArrayList<>();
-			lore.add("§7Clique para finalizar a sessão");
+			lore.add("§7Clique para finalizar");
 			mFinalizar.setLore(lore);
 			finalizar.setItemMeta(mFinalizar);
 			inv.setItem(38, finalizar);
 		} else {
 			ItemStack finalizar = new ItemStack(Material.INK_SACK, 1, (short) 8);
 			ItemMeta mFinalizar = finalizar.getItemMeta();
-			mFinalizar.setDisplayName("§7Finalizar ScreenShare");
+			mFinalizar.setDisplayName("§7Finalizar Sessão");
 			ArrayList<String> lore = new ArrayList<>();
 			lore.add("§cApenas o Autor pode finalizar a sessão");
 			mFinalizar.setLore(lore);
