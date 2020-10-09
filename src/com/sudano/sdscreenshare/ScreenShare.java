@@ -25,6 +25,7 @@ public final class ScreenShare {
 		this.suspect = suspect;
 		this.author = author;
 		this.iniciado = iniciado;
+		this.finalizado = "em andamento";
 		this.spectators = new ArrayList<>();
 
 		this.file = new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare-logs",
