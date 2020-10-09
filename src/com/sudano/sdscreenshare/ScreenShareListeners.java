@@ -116,6 +116,8 @@ public class ScreenShareListeners implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = (Player) event.getPlayer();
+		Bukkit.getOnlinePlayers().stream().filter(players -> ScreenShareAPI.hasScreenShare(players))
+				.forEach(players -> event.getRecipients().remove(players));
 		if (ScreenShareAPI.hasScreenShare(player)) {
 			ScreenShare ss = ScreenShareAPI.getScreenShare(player);
 			event.setCancelled(true);
