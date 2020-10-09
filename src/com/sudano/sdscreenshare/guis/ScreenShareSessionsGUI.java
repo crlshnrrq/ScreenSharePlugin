@@ -13,8 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import com.sudano.sdscreenshare.ScreenSharePlugin;
 import com.sudano.sdscreenshare.ScreenShare;
+import com.sudano.sdscreenshare.ScreenSharePlugin;
 
 public final class ScreenShareSessionsGUI implements Listener {
 
@@ -36,7 +36,7 @@ public final class ScreenShareSessionsGUI implements Listener {
 			if (display.startsWith("§6Sessão #")) {
 				ScreenShare ss = ScreenSharePlugin.getScreenShareById(display.replace("§6Sessão #", ""));
 				if (ss != null)
-					ScreenSharePlayerGUI.openGUI(player, ss);
+					ScreenSharePlayerGUI.openGUI(player, ss.getSuspect());
 			}
 		}
 	}
