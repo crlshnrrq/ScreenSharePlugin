@@ -61,7 +61,7 @@ public final class ScreenShareAPI {
 
 	public static void createScreenShare(Player author, Player suspect) {
 		String id = getRandomID();
-		while (new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare-logs",
+		while (new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare/screenshare-logs",
 				"screenshare-" + id + ".yml").exists())
 			id = getRandomID();
 

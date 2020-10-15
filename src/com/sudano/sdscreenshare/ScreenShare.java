@@ -22,7 +22,7 @@ public final class ScreenShare {
 		this.id = id;
 		this.spectators = new ArrayList<>();
 
-		this.file = new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare-logs",
+		this.file = new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare/screenshare-logs",
 				"screenshare-" + id + ".yml");
 		if (!this.getFile().exists())
 			this.getFile().getParentFile().mkdirs();
