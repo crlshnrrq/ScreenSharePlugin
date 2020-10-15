@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.sudano.sdscreenshare.guis.ScreenShareHistoryGUI;
 import com.sudano.sdscreenshare.guis.ScreenSharePlayerGUI;
 import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
 
@@ -20,6 +21,9 @@ public final class ScreenShareCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("-sessions")) {
 						ScreenShareSessionsGUI.openGUI(player);
 						player.sendMessage("§aVocê abriu a Lista de ScreenShare's!");
+					} else if (args[0].equalsIgnoreCase("-history")) {
+						ScreenShareHistoryGUI.openGUI(player);
+						player.sendMessage("§aVocê abriu o Histórico de Sessões!");
 					} else if (args[0].equalsIgnoreCase("-spectate")) {
 						if (args.length > 1) {
 							Player target = Bukkit.getPlayer(args[1]);
