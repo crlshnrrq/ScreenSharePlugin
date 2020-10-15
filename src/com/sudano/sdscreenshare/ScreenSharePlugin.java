@@ -10,6 +10,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sudano.sdscreenshare.events.TimeSecondEvent;
+import com.sudano.sdscreenshare.guis.ScreenShareHistoryGUI;
 import com.sudano.sdscreenshare.guis.ScreenSharePlayerGUI;
 import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
 
@@ -59,6 +60,7 @@ public final class ScreenSharePlugin {
 		Bukkit.getServer().createWorld(new WorldCreator("screenshare_world"));
 
 		PluginManager pm = Bukkit.getPluginManager();
+		pm.registerEvents(new ScreenShareHistoryGUI(), getPlugin());
 		pm.registerEvents(new ScreenShareSessionsGUI(), getPlugin());
 		pm.registerEvents(new ScreenSharePlayerGUI(), getPlugin());
 
