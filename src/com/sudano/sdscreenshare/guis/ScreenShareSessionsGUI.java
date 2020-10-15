@@ -35,8 +35,9 @@ public final class ScreenShareSessionsGUI implements Listener {
 				openGUI(player, page + 1);
 			if (display.equals("§aHistórico de Sessões"))
 				ScreenShareHistoryGUI.openGUI(player);
-			if (display.startsWith("§6Sessão #")) {
-				ScreenShare ss = ScreenSharePlugin.getScreenShareById(display.replace("§6Sessão #", ""));
+			if (display.startsWith("§6Informações da Sessão #§7")) {
+				ScreenShare ss = ScreenSharePlugin
+						.getScreenShareById(display.replace("§6Informações da Sessão #§7", ""));
 				if (ss != null)
 					ScreenSharePlayerGUI.openGUI(player, ss.getSuspect());
 			}
@@ -72,11 +73,13 @@ public final class ScreenShareSessionsGUI implements Listener {
 					ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 					SkullMeta mItem = (SkullMeta) item.getItemMeta();
 					mItem.setOwner(ss.getSuspect());
-					mItem.setDisplayName("§6Sessão #" + ss.getID());
+					mItem.setDisplayName("§6Informações da Sessão #§7" + ss.getID());
 					ArrayList<String> lore = new ArrayList<>();
 					lore.add(" ");
-					lore.add("§7Suspeito: §c" + ss.getSuspect());
-					lore.add("§7Autor: §a" + ss.getAuthor());
+					lore.add(" §8» §fSuspeito: §7" + ss.getSuspect());
+					lore.add(" §8» §fAutor: §7" + ss.getAuthor());
+					lore.add(" §8» §fIniciado em: §7" + ss.getIniciado());
+					lore.add(" §8» §fFinalizado em: §7" + ss.getFinalizado());
 					lore.add(" ");
 					mItem.setLore(lore);
 					item.setItemMeta(mItem);
