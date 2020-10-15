@@ -18,7 +18,7 @@ public final class Config {
 			this.getFile().getParentFile().mkdirs();
 		this.config = YamlConfiguration.loadConfiguration(this.getFile());
 
-		if (this.getConfig().contains("screenshare-history")) {
+		if (!this.getConfig().contains("screenshare-history")) {
 			this.getConfig().set("screenshare-history", new ArrayList<>());
 			this.saveConfig();
 		}
