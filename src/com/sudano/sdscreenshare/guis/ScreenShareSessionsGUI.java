@@ -33,6 +33,8 @@ public final class ScreenShareSessionsGUI implements Listener {
 				openGUI(player, page - 1);
 			if (display.equals("§aPágina Posterior"))
 				openGUI(player, page + 1);
+			if (display.equals("§aHistórico de Sessões"))
+				ScreenShareHistoryGUI.openGUI(player);
 			if (display.startsWith("§6Sessão #")) {
 				ScreenShare ss = ScreenSharePlugin.getScreenShareById(display.replace("§6Sessão #", ""));
 				if (ss != null)
@@ -81,6 +83,20 @@ public final class ScreenShareSessionsGUI implements Listener {
 					inv.setItem(inv.firstEmpty(), item);
 				}
 			}
+		}
+
+		if (player.hasPermission("sdscreenshare.viewhistory")) {
+			ItemStack historico = new ItemStack(Material.BOOK);
+			ItemMeta mHistorico = historico.getItemMeta();
+			mHistorico.setDisplayName("§aHistórico de Sessões");
+			historico.setItemMeta(mHistorico);
+			inv.setItem(49, historico);
+		} else {
+			ItemStack historico = new ItemStack(Material.BOOK);
+			ItemMeta mHistorico = historico.getItemMeta();
+			mHistorico.setDisplayName("§7Histórico de Sessões");
+			historico.setItemMeta(mHistorico);
+			inv.setItem(49, historico);
 		}
 
 		double pages = Math.ceil((double) ScreenSharePlugin.getScreenshares().size() / 45);
