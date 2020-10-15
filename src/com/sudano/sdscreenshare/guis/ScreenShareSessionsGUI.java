@@ -54,6 +54,12 @@ public final class ScreenShareSessionsGUI implements Listener {
 			mVoltar.setDisplayName("§aPágina Anterior");
 			voltar.setItemMeta(mVoltar);
 			inv.setItem(45, voltar);
+		} else {
+			ItemStack voltar = new ItemStack(Material.ARROW);
+			ItemMeta mVoltar = voltar.getItemMeta();
+			mVoltar.setDisplayName("§7Página Anterior");
+			voltar.setItemMeta(mVoltar);
+			inv.setItem(45, voltar);
 		}
 
 		ArrayList<ScreenShare> screenshares = ScreenSharePlugin.getScreenshares();
@@ -82,6 +88,12 @@ public final class ScreenShareSessionsGUI implements Listener {
 			ItemStack avancar = new ItemStack(Material.ARROW);
 			ItemMeta mAvancar = avancar.getItemMeta();
 			mAvancar.setDisplayName("§aPágina Posterior");
+			avancar.setItemMeta(mAvancar);
+			inv.setItem(53, avancar);
+		} else {
+			ItemStack avancar = new ItemStack(Material.ARROW);
+			ItemMeta mAvancar = avancar.getItemMeta();
+			mAvancar.setDisplayName("§7Página Posterior");
 			avancar.setItemMeta(mAvancar);
 			inv.setItem(53, avancar);
 		}
