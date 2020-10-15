@@ -95,6 +95,7 @@ public final class ScreenShareAPI {
 		Bukkit.getPluginManager().callEvent(new PlayerScreenShareFinalizeEvent(author, screenShare));
 
 		screenShare.setFinalizado(getCurrentTime());
+		ScreenSharePlugin.getConfig().addScreenShareHistory(screenShare.getID());
 		ScreenSharePlugin.getScreenshares().remove(screenShare);
 	}
 
