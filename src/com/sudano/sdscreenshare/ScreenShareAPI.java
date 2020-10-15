@@ -65,7 +65,11 @@ public final class ScreenShareAPI {
 				"screenshare-" + id + ".yml").exists())
 			id = getRandomID();
 
-		ScreenShare ss = new ScreenShare(id, author.getName(), suspect.getName(), getCurrentTime());
+		ScreenShare ss = new ScreenShare(id);
+		ss.setAuthor(author.getName());
+		ss.setSuspect(suspect.getName());
+		ss.setIniciado(getCurrentTime());
+		ss.setFinalizado("em andamento");
 
 		Bukkit.getPluginManager().callEvent(new PlayerScreenShareCreateEvent(author, ss));
 
