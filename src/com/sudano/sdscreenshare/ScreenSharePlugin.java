@@ -16,6 +16,7 @@ import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
 public final class ScreenSharePlugin {
 
 	private static JavaPlugin plugin;
+	private static Config config;
 
 	public ScreenSharePlugin(JavaPlugin instance) {
 		plugin = instance;
@@ -23,6 +24,10 @@ public final class ScreenSharePlugin {
 
 	public static JavaPlugin getPlugin() {
 		return plugin;
+	}
+
+	public static Config getConfig() {
+		return config;
 	}
 
 	private static final ArrayList<ScreenShare> screenshares = new ArrayList<>();
@@ -49,6 +54,8 @@ public final class ScreenSharePlugin {
 	}
 
 	public void onEnable() {
+		config = new Config();
+
 		Bukkit.getServer().createWorld(new WorldCreator("screenshare_world"));
 
 		PluginManager pm = Bukkit.getPluginManager();
