@@ -17,6 +17,11 @@ public final class Config {
 		if (!this.getFile().exists())
 			this.getFile().getParentFile().mkdirs();
 		this.config = YamlConfiguration.loadConfiguration(this.getFile());
+
+		if (this.getConfig().contains("screenshare-history")) {
+			this.getConfig().set("screenshare-history", new ArrayList<>());
+			this.saveConfig();
+		}
 	}
 
 	protected File getFile() {
@@ -36,9 +41,7 @@ public final class Config {
 	}
 
 	public List<String> getScreenShareHistory() {
-		if (this.getConfig().contains("screenshare-history"))
-			return this.getConfig().getStringList("screenshare-history");
-		return new ArrayList<>();
+		return this.getConfig().getStringList("screenshare-history");
 	}
 
 	public void addScreenShareHistory(String id) {
