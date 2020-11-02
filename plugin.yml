@@ -1,5 +1,5 @@
 main: com.github.crlshnrrq.screenshareplugin.Main
-name: sdScreenShare
+name: ScreenSharePlugin
 version: develop
 authors: [Carlos Henrique#0240]
 description: Versão 2.0 do Plugin sdScreenShare.
