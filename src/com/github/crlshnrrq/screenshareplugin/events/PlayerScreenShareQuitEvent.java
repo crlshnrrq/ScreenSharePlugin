@@ -1,8 +1,8 @@
-package com.sudano.sdscreenshare.events;
+package com.github.crlshnrrq.screenshareplugin.events;
 
 import org.bukkit.entity.Player;
 
-import com.sudano.sdscreenshare.ScreenShare;
+import com.github.crlshnrrq.screenshareplugin.ScreenShare;
 
 public class PlayerScreenShareQuitEvent extends PlayerScreenShareEvent {
 

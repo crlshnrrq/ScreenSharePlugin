@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -27,13 +27,13 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 
-import com.sudano.sdscreenshare.events.PlayerScreenShareCreateEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareFinalizeEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareJoinEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenSharePulledEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenSharePushedEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareQuitEvent;
-import com.sudano.sdscreenshare.events.TimeSecondEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareCreateEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareFinalizeEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareJoinEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenSharePulledEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenSharePushedEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareQuitEvent;
+import com.github.crlshnrrq.screenshareplugin.events.TimeSecondEvent;
 
 public class ScreenShareListeners implements Listener {
 

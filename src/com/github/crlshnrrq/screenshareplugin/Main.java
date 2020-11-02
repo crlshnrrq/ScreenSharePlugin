@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare.guis;
+package com.github.crlshnrrq.screenshareplugin.guis;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,8 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import com.sudano.sdscreenshare.ScreenShare;
-import com.sudano.sdscreenshare.ScreenSharePlugin;
+import com.github.crlshnrrq.screenshareplugin.ScreenShare;
+import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 
 public final class ScreenShareHistoryGUI implements Listener {
 

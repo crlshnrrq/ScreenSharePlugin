@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -11,12 +11,12 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.sudano.sdscreenshare.events.PlayerScreenShareCreateEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareFinalizeEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareJoinEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenSharePulledEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenSharePushedEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareQuitEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareCreateEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareFinalizeEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareJoinEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenSharePulledEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenSharePushedEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareQuitEvent;
 
 public final class ScreenShareAPI {
 

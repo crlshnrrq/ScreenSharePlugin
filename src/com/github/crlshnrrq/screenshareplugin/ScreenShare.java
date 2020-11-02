@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
 import java.io.File;
 import java.io.IOException;

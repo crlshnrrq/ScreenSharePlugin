@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,9 +6,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sudano.sdscreenshare.guis.ScreenShareHistoryGUI;
-import com.sudano.sdscreenshare.guis.ScreenSharePlayerGUI;
-import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareHistoryGUI;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenSharePlayerGUI;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareSessionsGUI;
 
 public final class ScreenShareCommand implements CommandExecutor {
 

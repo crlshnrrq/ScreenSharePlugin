@@ -1,4 +1,4 @@
-main: com.sudano.sdscreenshare.Main
+main: com.github.crlshnrrq.screenshareplugin.Main
 name: sdScreenShare
 version: develop
 authors: [Carlos Henrique#0240]

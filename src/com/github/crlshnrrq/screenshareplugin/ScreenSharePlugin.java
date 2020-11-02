@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
 import java.util.ArrayList;
 
@@ -9,10 +9,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sudano.sdscreenshare.events.TimeSecondEvent;
-import com.sudano.sdscreenshare.guis.ScreenShareHistoryGUI;
-import com.sudano.sdscreenshare.guis.ScreenSharePlayerGUI;
-import com.sudano.sdscreenshare.guis.ScreenShareSessionsGUI;
+import com.github.crlshnrrq.screenshareplugin.events.TimeSecondEvent;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareHistoryGUI;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenSharePlayerGUI;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareSessionsGUI;
 
 public final class ScreenSharePlugin {
 
