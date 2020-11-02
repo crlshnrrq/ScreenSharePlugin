@@ -2,7 +2,9 @@ main: com.github.crlshnrrq.screenshareplugin.Main
 name: ScreenSharePlugin
 version: develop
 authors: [Carlos Henrique#0240]
-description: Versão 2.0 do Plugin sdScreenShare.
+description: |
+  Sistema de ScreenShare customizável, seguro e estável.
+  Disponível para versões 1.7x e 1.8x
 commands:
    screenshare:
     aliases: [ss]
