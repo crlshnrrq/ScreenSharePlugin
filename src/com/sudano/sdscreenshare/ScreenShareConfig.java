@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public final class Config {
+public final class ScreenShareConfig {
 
 	private final File file;
 	private final YamlConfiguration config;
 
-	public Config() {
+	public ScreenShareConfig() {
 		this.file = new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare", "config.yml");
 		if (!this.getFile().exists())
 			this.getFile().getParentFile().mkdirs();
