@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.crlshnrrq.screenshareplugin.events.TimeSecondEvent;
 import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareHistoryGUI;
+import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareInfoSessionGUI;
 import com.github.crlshnrrq.screenshareplugin.guis.ScreenSharePlayerGUI;
 import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareSessionsGUI;
 
@@ -37,8 +38,9 @@ public final class ScreenSharePlugin {
 		return screenshares;
 	}
 
-	public static ScreenShare getScreenShareById(String id) {
-		return getScreenshares().stream().filter(ss -> ss.getID().equals(id)).findFirst().orElse(null);
+	public static ScreenShare getScreenShareById(String id, boolean filterHistory) {
+		return getScreenshares().stream().filter(ss -> ss.getID().equals(id)).findFirst()
+				.orElse(filterHistory ? new ScreenShare(id) : null);
 	}
 
 	public static ScreenShare getScreenShareBySuspect(String nickname) {
@@ -61,6 +63,7 @@ public final class ScreenSharePlugin {
 
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new ScreenShareHistoryGUI(), getPlugin());
+		pm.registerEvents(new ScreenShareInfoSessionGUI(), getPlugin());
 		pm.registerEvents(new ScreenShareSessionsGUI(), getPlugin());
 		pm.registerEvents(new ScreenSharePlayerGUI(), getPlugin());
 
