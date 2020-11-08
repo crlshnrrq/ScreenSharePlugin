@@ -127,6 +127,10 @@ public final class ScreenShare {
 		return list;
 	}
 
+	public List<String> getLogs() {
+		return this.config.getStringList("logs");
+	}
+
 	public void log(String log) {
 		try {
 			List<String> logs = this.config.getStringList("logs");
