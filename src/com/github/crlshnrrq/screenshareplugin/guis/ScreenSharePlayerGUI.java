@@ -89,7 +89,8 @@ public final class ScreenSharePlayerGUI implements Listener {
 			if (ScreenShareAPI.hasScreenShare(target)) {
 				ScreenShare ss = ScreenShareAPI.getScreenShare(target);
 
-				if (ss.getAuthor().equalsIgnoreCase(player.getName()) || player.hasPermission("sdscreenshare.bypass")) {
+				if (ss.getAuthor().equalsIgnoreCase(player.getName())
+						|| player.hasPermission("screenshareplugin.bypass")) {
 					ItemStack finalizar = new ItemStack(Material.INK_SACK, 1, (short) 1);
 					ItemMeta mFinalizar = finalizar.getItemMeta();
 					mFinalizar.setDisplayName("§cFinalizar a ScreenShare");
