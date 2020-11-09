@@ -40,6 +40,21 @@ public final class ScreenShareConfig {
 		}
 	}
 
+	public boolean existsScreenShare(String id) {
+		return new File(ScreenSharePlugin.getPlugin().getDataFolder() + "/screenshare/screenshare-logs",
+				"screenshare-" + id + ".yml").exists();
+	}
+
+	public ScreenShare getScreenShare(String id) {
+		return this.existsScreenShare(id) ? new ScreenShare(id) : null;
+	}
+
+	public void deleteScreenShare(String id) {
+		ScreenShare screenShare = this.getScreenShare(id);
+		if (screenShare != null && screenShare.getFile().delete())
+			this.removeScreenShareHistory(id);
+	}
+
 	public List<String> getScreenShareHistory() {
 		return this.getConfig().getStringList("screenshare-history");
 	}
