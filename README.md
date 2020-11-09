@@ -8,7 +8,7 @@
 
 **Novidades:**
 =
-**Novidades para Donos de Servidores:**
+**Novidades para Usuários Finais:**
  * Plugin controlável por Menu GUI;
  * Sistema de múltiplas ScreenShare's em um único Servidor;
  * Histórico de Sessões de ScreenShare;
