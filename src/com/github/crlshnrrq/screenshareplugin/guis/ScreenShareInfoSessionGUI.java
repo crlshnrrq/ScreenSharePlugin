@@ -49,11 +49,15 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 					URL url = Pastebin.pastePaste("6a32a05be10baa5380d618fff13ab968", content,
 							"Registros da Sessão #" + id);
 
-					player.sendMessage("§aURL dos Registros: " + url);
+					player.sendMessage("§aURL do Registro: " + url);
 					player.closeInventory();
 				} catch (PasteException ex) {
 					ex.printStackTrace();
 				}
+			} else if (display.equals("§cExcluir a Sessão")) {
+				ScreenSharePlugin.getConfig().deleteScreenShare(id);
+				player.sendMessage("§aVocê excluiu a ScreenShare #" + id);
+				player.closeInventory();
 			}
 		}
 	}
@@ -96,6 +100,13 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 		mLogs.setLore(Arrays.asList("§7Clique para receber um URL com os registros."));
 		logs.setItemMeta(mLogs);
 		inv.setItem(inv.firstEmpty(), logs);
+
+		ItemStack delete = new ItemStack(Material.INK_SACK, 1, (short) 4);
+		ItemMeta mDelete = delete.getItemMeta();
+		mDelete.setDisplayName("§cExcluir a Sessão");
+		mDelete.setLore(Arrays.asList("§7Clique para apagar a Sessão de forma permanente."));
+		delete.setItemMeta(mDelete);
+		inv.setItem(inv.firstEmpty(), delete);
 
 		ItemStack vidro = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta mVidro = vidro.getItemMeta();

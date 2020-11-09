@@ -1,9 +1,8 @@
 package com.github.crlshnrrq.screenshareplugin.guis;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -70,7 +69,12 @@ public final class ScreenShareHistoryGUI implements Listener {
 		Collections.reverse(history);
 
 		List<ScreenShare> screenshares = new ArrayList<>();
-		history.forEach(id -> screenshares.add(new ScreenShare(id)));
+		for (String id : history) {
+			if (ScreenSharePlugin.getConfig().existsScreenShare(id))
+				screenshares.add(new ScreenShare(id));
+			else
+				ScreenSharePlugin.getConfig().removeScreenShareHistory(id);
+		}
 
 		for (int index = ((page - 1) * 45) + 1; index <= page * 45; index++) {
 			if (screenshares.size() >= index) {
