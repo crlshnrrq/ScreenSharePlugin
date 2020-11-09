@@ -1,4 +1,4 @@
-package com.sudano.sdscreenshare.events;
+package com.github.crlshnrrq.screenshareplugin.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

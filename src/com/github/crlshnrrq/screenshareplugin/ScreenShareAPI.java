@@ -1,21 +1,42 @@
-package com.sudano.sdscreenshare;
+package com.github.crlshnrrq.screenshareplugin;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.sudano.sdscreenshare.events.PlayerScreenShareCreateEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareFinalizeEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareJoinEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenSharePulledEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenSharePushedEvent;
-import com.sudano.sdscreenshare.events.PlayerScreenShareQuitEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareCreateEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareFinalizeEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareJoinEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenSharePulledEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenSharePushedEvent;
+import com.github.crlshnrrq.screenshareplugin.events.PlayerScreenShareQuitEvent;
 
 public final class ScreenShareAPI {
 
 	private static final HashMap<UUID, ScreenShare> screenShareMap = new HashMap<>();
+
+	public static String getCurrentTime() {
+		String[] split = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+				.format(GregorianCalendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).getTime()).split(" ");
+		return split[0] + " às " + split[1];
+	}
+
+	public static String getRandomID() {
+		char[] values = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+
+		String id = new String();
+		for (int i = 0; i < 5; i++)
+			id += values[new Random().nextInt(values.length)];
+
+		return id;
+	}
 
 	public static boolean hasScreenShare(Player player) {
 		return screenShareMap.containsKey(player.getUniqueId());
@@ -39,7 +60,15 @@ public final class ScreenShareAPI {
 	}
 
 	public static void createScreenShare(Player author, Player suspect) {
-		ScreenShare ss = new ScreenShare(ScreenSharePlugin.getScreenshares().size() + 1, author.getName(), suspect.getName());
+		String id = getRandomID();
+		while (ScreenSharePlugin.getConfig().existsScreenShare(id))
+			id = getRandomID();
+
+		ScreenShare ss = new ScreenShare(id);
+		ss.setAuthor(author.getName());
+		ss.setSuspect(suspect.getName());
+		ss.setIniciado(getCurrentTime());
+		ss.setFinalizado("em andamento");
 
 		Bukkit.getPluginManager().callEvent(new PlayerScreenShareCreateEvent(author, ss));
 
@@ -64,6 +93,8 @@ public final class ScreenShareAPI {
 
 		Bukkit.getPluginManager().callEvent(new PlayerScreenShareFinalizeEvent(author, screenShare));
 
+		screenShare.setFinalizado(getCurrentTime());
+		ScreenSharePlugin.getConfig().addScreenShareHistory(screenShare.getID());
 		ScreenSharePlugin.getScreenshares().remove(screenShare);
 	}
 

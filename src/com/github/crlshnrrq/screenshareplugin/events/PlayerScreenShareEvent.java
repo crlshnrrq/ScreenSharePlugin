@@ -1,11 +1,11 @@
-package com.sudano.sdscreenshare.events;
+package com.github.crlshnrrq.screenshareplugin.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-import com.sudano.sdscreenshare.ScreenShare;
+import com.github.crlshnrrq.screenshareplugin.ScreenShare;
 
 public class PlayerScreenShareEvent extends PlayerEvent implements Cancellable {
 
