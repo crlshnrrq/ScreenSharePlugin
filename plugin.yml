@@ -1,6 +1,6 @@
 main: com.github.crlshnrrq.screenshareplugin.Main
 name: ScreenSharePlugin
-version: develop
+version: 2.5
 authors: [Carlos Henrique#0240]
 description: |
   Sistema de ScreenShare customizável, seguro e estável.

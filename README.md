@@ -1,12 +1,19 @@
-# sdScreenShare
- Versão 2.0 do Plugin sdScreenShare.
+# ScreenSharePlugin
+ Versão 2.5 do Plugin ScreenSharePlugin.
+
+ Sistema de ScreenShare customizável, seguro e estável.
+
+ Disponível para versões 1.7x e 1.8x.
 
 
 **Novidades:**
 =
 **Novidades para Donos de Servidores:**
  * Plugin controlável por Menu GUI;
- * Sistema de múltiplas ScreenShare's em um único Servidor.
+ * Sistema de múltiplas ScreenShare's em um único Servidor;
+ * Histórico de Sessões de ScreenShare;
+ * Registro de Mensagens da Sessão carregadas em Pastebin;
+ * Informações da Sessão por GUI.
  
 **Novidades para Desenvolvedores:**
  * Plugin de ScreenShare com código-fonte aberto;
@@ -19,5 +26,6 @@
 
 **Permissões:**
 =
- * sdscreenshare.use **Permite o Jogador usar o Comando;**
- * sdscreenshare.bypass **Permite o Jogador burlar os bloqueios.**
+ * screenshareplugin.use **Permite o Jogador usar o Comando;**
+ * screenshareplugin.bypass **Permite o Jogador burlar os bloqueios;**
+ * screenshareplugin.viewhistory **Permite ver o Histórico de Sessões;**
