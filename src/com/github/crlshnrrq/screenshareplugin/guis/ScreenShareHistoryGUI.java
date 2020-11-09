@@ -38,6 +38,10 @@ public final class ScreenShareHistoryGUI implements Listener {
 				openGUI(player, page + 1);
 			if (display.equals("§aSessões em Andamento"))
 				ScreenShareSessionsGUI.openGUI(player);
+			if (display.startsWith("§6Informações da Sessão #§7")) {
+				String id = display.replace("§6Informações da Sessão #§7", "");
+				ScreenShareInfoSessionGUI.openGUI(player, id);
+			}
 		}
 	}
 
