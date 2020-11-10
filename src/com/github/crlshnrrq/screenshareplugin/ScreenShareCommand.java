@@ -22,26 +22,26 @@ public final class ScreenShareCommand implements CommandExecutor {
 				if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("-sessions")) {
 						ScreenShareSessionsGUI.openGUI(player);
-						player.sendMessage(config.getCommand_OpenSessions());
+						config.getCommand_OpenSessions().forEach(message -> player.sendMessage(message));
 					} else if (args[0].equalsIgnoreCase("-history")) {
 						if (player.hasPermission(config.getCommand_ViewHistoryPermission())) {
 							ScreenShareHistoryGUI.openGUI(player);
-							player.sendMessage(config.getCommand_OpenHistorySessions());
+							config.getCommand_OpenHistorySessions().forEach(message -> player.sendMessage(message));
 						} else
-							player.sendMessage(config.getCommand_InsuficientPermissions());
+							config.getCommand_InsuficientPermissions().forEach(message -> player.sendMessage(message));
 					} else if (args[0].equalsIgnoreCase("-config")) {
 						ScreenShareConfigGUI.openGUI(player);
-						player.sendMessage(config.getCommand_OpenConfig());
+						config.getCommand_OpenConfig().forEach(message -> player.sendMessage(message));
 					} else {
 						ScreenSharePlayerGUI.openGUI(player, args[0]);
-						player.sendMessage(config.getCommand_OpenPlayerInfo(args[0]));
+						config.getCommand_OpenPlayerInfo(args[0]).forEach(message -> player.sendMessage(message));
 					}
 				} else
-					player.sendMessage(config.getCommand_Usage(label));
+					config.getCommand_Usage(label).forEach(message -> player.sendMessage(message));
 			} else
-				player.sendMessage(config.getCommand_InsuficientPermissions());
+				config.getCommand_InsuficientPermissions().forEach(message -> player.sendMessage(message));
 		} else
-			sender.sendMessage(config.getCommand_OnlyPlayersUse());
+			config.getCommand_OnlyPlayersUse().forEach(message -> sender.sendMessage(message));
 		return true;
 	}
 }

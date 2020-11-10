@@ -3,14 +3,11 @@ package com.github.crlshnrrq.screenshareplugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareHistoryGUI;
-import com.github.crlshnrrq.screenshareplugin.guis.ScreenSharePlayerGUI;
-import com.github.crlshnrrq.screenshareplugin.guis.config.ScreenShareConfigGUI;
 
 public final class ScreenShareConfig {
 
@@ -71,11 +68,11 @@ public final class ScreenShareConfig {
 		if (!this.getMessages().contains("session.use-commands"))
 			this.getMessages().set("session.use-commands", "&cVocê não pode executar Comandos na ScreenShare.");
 		if (!this.getMessages().contains("session.start-session"))
-			this.getMessages().set("session.start-session",
-					"&aVocê foi puxado para a ScreenShare! §eBaixe o aplicativo AnyDesk, e siga todos os passos que o Staff falar!");
+			this.getMessages().set("session.start-session", Arrays.asList("&aVocê foi puxado para a ScreenShare!",
+					"&eBaixe o aplicativo AnyDesk, e siga todos os passos que o Staff falar!"));
 		if (!this.getMessages().contains("session.end-session"))
-			this.getMessages().set("session.end-session",
-					"&aSua ScreenShare foi finalizada! &7Obrigado por cooperar com o Servidor, pedimos desculpas pelo incomodo!");
+			this.getMessages().set("session.end-session", Arrays.asList("&aSua ScreenShare foi finalizada!",
+					"&7Obrigado por cooperar com o Servidor, pedimos desculpas pelo incomodo!"));
 		if (!this.getMessages().contains("session.logout-session"))
 			this.getMessages().set("session.logout-during-session", "&c<nickname> deslogou durante a ScreenShare!");
 
@@ -180,9 +177,15 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_InsuficientPermissions() {
-		return ChatColor.translateAlternateColorCodes('&',
-				this.getMessages().getString("command.insuficient-permissions"));
+	public List<String> getCommand_InsuficientPermissions() {
+		if (this.getMessages().isString("command.insuficient-permissions"))
+			return Arrays.asList(ChatColor.translateAlternateColorCodes('&',
+					this.getMessages().getString("command.insuficient-permissions")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.insuficient-permissions")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setCommand_InsuficientPermissions(String message) {
@@ -190,9 +193,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_Usage(String command) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.usage"))
-				.replace("<command>", command);
+	public void setCommand_InsuficientPermissions(List<String> message) {
+		this.getMessages().set("command.insuficient-permissions", message);
+		this.saveMessages();
+	}
+
+	public List<String> getCommand_Usage(String command) {
+		if (this.getMessages().isString("command.usage"))
+			return Arrays
+					.asList(ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.usage"))
+							.replace("<command>", command));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.usage").forEach(
+				line -> messages.add(ChatColor.translateAlternateColorCodes('&', line).replace("<command>", command)));
+		return messages;
 	}
 
 	public void setCommand_Usage(String message) {
@@ -200,8 +215,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_OnlyPlayersUse() {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.only-players-use"));
+	public void setCommand_Usage(List<String> messages) {
+		this.getMessages().set("command.usage", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getCommand_OnlyPlayersUse() {
+		if (this.getMessages().isString("command.only-players-use"))
+			return Arrays.asList(ChatColor.translateAlternateColorCodes('&',
+					this.getMessages().getString("command.only-players-use")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.only-players-use")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setCommand_OnlyPlayersUse(String message) {
@@ -209,8 +236,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_OpenSessions() {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.open-sessions"));
+	public void setCommand_OnlyPlayersUse(List<String> messages) {
+		this.getMessages().set("command.only-players-use", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getCommand_OpenSessions() {
+		if (this.getMessages().isString("command.open-sessions"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.open-sessions")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.open-sessions")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setCommand_OpenSessions(String message) {
@@ -218,9 +257,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_OpenHistorySessions() {
-		return ChatColor.translateAlternateColorCodes('&',
-				this.getMessages().getString("command.open-history-sessions"));
+	public void setCommand_OpenSessions(List<String> messages) {
+		this.getMessages().set("command.open-sessions", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getCommand_OpenHistorySessions() {
+		if (this.getMessages().isString("command.open-history-sessions"))
+			return Arrays.asList(ChatColor.translateAlternateColorCodes('&',
+					this.getMessages().getString("command.open-history-sessions")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.open-history-sessions")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setCommand_OpenHistorySessions(String message) {
@@ -228,8 +278,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_OpenConfig() {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.open-config"));
+	public void setCommand_OpenHistorySessions(List<String> messages) {
+		this.getMessages().set("command.open-history-sessions", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getCommand_OpenConfig() {
+		if (this.getMessages().isString("command.open-config"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.open-config")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.open-config")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setCommand_OpenConfig(String message) {
@@ -237,13 +299,30 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getCommand_OpenPlayerInfo(String nickname) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("command.open-player-info"))
-				.replace("<nickname>", nickname);
+	public void setCommand_OpenConfig(List<String> messages) {
+		this.getMessages().set("command.open-config", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getCommand_OpenPlayerInfo(String nickname) {
+		if (this.getMessages().isString("command.open-player-info"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("command.open-player-info"))
+					.replace("<nickname>", nickname));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("command.open-player-info").forEach(line -> messages
+				.add(ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname)));
+		return messages;
 	}
 
 	public void setCommand_OpenPlayerInfo(String message) {
 		this.getMessages().set("command.open-player-info", message);
+		this.saveMessages();
+	}
+
+	public void setCommand_OpenPlayerInfo(List<String> messages) {
+		this.getMessages().set("command.open-player-info", messages);
 		this.saveMessages();
 	}
 
@@ -256,9 +335,16 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_JoinSession(String nickname) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.join-session"))
-				.replace("<nickname>", nickname);
+	public List<String> getSession_JoinSession(String nickname) {
+		if (this.getMessages().isString("session.join-session"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.join-session"))
+							.replace("<nickname>", nickname));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.join-session").forEach(line -> messages
+				.add(ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname)));
+		return messages;
 	}
 
 	public void setSession_JoinSession(String message) {
@@ -266,9 +352,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_InitiateSession(String nickname) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.initiate-session"))
-				.replace("<nickname>", nickname);
+	public void setSession_JoinSession(List<String> messages) {
+		this.getMessages().set("session.join-session", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_InitiateSession(String nickname) {
+		if (this.getMessages().isString("session.initiate-session"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("session.initiate-session"))
+					.replace("<nickname>", nickname));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.initiate-session").forEach(line -> messages
+				.add(ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname)));
+		return messages;
 	}
 
 	public void setSession_InitiateSession(String message) {
@@ -276,9 +374,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_FinalizeSession(String nickname) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.finalize-session"))
-				.replace("<nickname>", nickname);
+	public void setSession_InitiateSession(List<String> messages) {
+		this.getMessages().set("session.initiate-session", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_FinalizeSession(String nickname) {
+		if (this.getMessages().isString("session.finalize-session"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("session.finalize-session"))
+					.replace("<nickname>", nickname));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.finalize-session").forEach(line -> messages
+				.add(ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname)));
+		return messages;
 	}
 
 	public void setSession_FinalizeSession(String message) {
@@ -286,9 +396,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_LeaveSession(String nickname) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.leave-session"))
-				.replace("<nickname>", nickname);
+	public void setSession_FinalizeSession(List<String> messages) {
+		this.getMessages().set("session.finalize-session", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_LeaveSession(String nickname) {
+		if (this.getMessages().isString("session.leave-session"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.leave-session"))
+							.replace("<nickname>", nickname));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.leave-session").forEach(line -> messages
+				.add(ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname)));
+		return messages;
 	}
 
 	public void setSession_LeaveSession(String message) {
@@ -296,8 +418,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_UseCommands() {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.use-commands"));
+	public void setSession_LeaveSession(List<String> messages) {
+		this.getMessages().set("session.leave-session", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_UseCommands() {
+		if (this.getMessages().isString("session.use-commands"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.use-commands")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.use-commands")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setSession_UseCommands(String message) {
@@ -305,8 +439,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_StartSession() {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.start-session"));
+	public void setSession_UseCommands(List<String> messages) {
+		this.getMessages().set("session.use-commands", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_StartSession() {
+		if (this.getMessages().isString("session.start-session"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.start-session")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.start-session")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setSession_StartSession(String message) {
@@ -314,8 +460,20 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_EndSession() {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.end-session"));
+	public void setSession_StartSession(List<String> messages) {
+		this.getMessages().set("session.start-session", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_EndSession() {
+		if (this.getMessages().isString("session.end-session"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.end-session")));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.end-session")
+				.forEach(line -> messages.add(ChatColor.translateAlternateColorCodes('&', line)));
+		return messages;
 	}
 
 	public void setSession_EndSession(String message) {
@@ -323,9 +481,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_LogoutSession(String nickname) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.logout-session"))
-				.replace("<nickname>", nickname);
+	public void setSession_EndSession(List<String> messages) {
+		this.getMessages().set("session.end-session", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_LogoutSession(String nickname) {
+		if (this.getMessages().isString("session.logout-session"))
+			return Arrays.asList(
+					ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.logout-session"))
+							.replace("<nickname>", nickname));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.logout-session").forEach(line -> messages
+				.add(ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname)));
+		return messages;
 	}
 
 	public void setSession_LogoutSession(String message) {
@@ -333,10 +503,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_Logs_InitiateSession(String nickname, String id) {
-		return ChatColor
-				.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.initiate-session"))
-				.replace("<nickname>", nickname).replace("<id>", id);
+	public void setSession_LogoutSession(List<String> messages) {
+		this.getMessages().set("session.logout-sesion", messages);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_Logs_InitiateSession(String nickname, String id) {
+		if (this.getMessages().isString("session.logs.initiate-session"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.initiate-session"))
+					.replace("<nickname>", nickname).replace("<id>", id));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.logs.initiate-session").forEach(line -> messages.add(
+				ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname).replace("<id>", id)));
+		return messages;
 	}
 
 	public void setSession_Logs_InitiateSession(String message) {
@@ -344,10 +525,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_Logs_FinalizeSession(String nickname, String id) {
-		return ChatColor
-				.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.finalize-session"))
-				.replace("<nickname>", nickname).replace("<id>", id);
+	public void setSession_Logs_InitiateSession(List<String> message) {
+		this.getMessages().set("session.logs.initiate-sesion", message);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_Logs_FinalizeSession(String nickname, String id) {
+		if (this.getMessages().isString("session.logs.finalize-session"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.finalize-session"))
+					.replace("<nickname>", nickname).replace("<id>", id));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.logs.finalize-session").forEach(line -> messages.add(
+				ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname).replace("<id>", id)));
+		return messages;
 	}
 
 	public void setSession_Logs_FinalizeSession(String message) {
@@ -355,9 +547,21 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_Logs_JoinSession(String nickname, String id) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.join-session"))
-				.replace("<nickname>", nickname).replace("<id>", id);
+	public void setSession_Logs_FinalizeSession(List<String> message) {
+		this.getMessages().set("session.logs.finalize-sesion", message);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_Logs_JoinSession(String nickname, String id) {
+		if (this.getMessages().isString("session.logs.join-session"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.join-session"))
+					.replace("<nickname>", nickname).replace("<id>", id));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.logs.join-session").forEach(line -> messages.add(
+				ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname).replace("<id>", id)));
+		return messages;
 	}
 
 	public void setSession_Logs_JoinSession(String message) {
@@ -365,12 +569,29 @@ public final class ScreenShareConfig {
 		this.saveMessages();
 	}
 
-	public String getSession_Logs_LeaveSession(String nickname, String id) {
-		return ChatColor.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.leave-session"))
-				.replace("<nickname>", nickname).replace("<id>", id);
+	public void setSession_Logs_JoinSession(List<String> message) {
+		this.getMessages().set("session.logs.join-sesion", message);
+		this.saveMessages();
+	}
+
+	public List<String> getSession_Logs_LeaveSession(String nickname, String id) {
+		if (this.getMessages().isString("session.logs.leave-session"))
+			return Arrays.asList(ChatColor
+					.translateAlternateColorCodes('&', this.getMessages().getString("session.logs.leave-session"))
+					.replace("<nickname>", nickname).replace("<id>", id));
+
+		List<String> messages = new ArrayList<>();
+		this.getMessages().getStringList("session.logs.leave-session").forEach(line -> messages.add(
+				ChatColor.translateAlternateColorCodes('&', line).replace("<nickname>", nickname).replace("<id>", id)));
+		return messages;
 	}
 
 	public void setSession_Logs_LeaveSession(String message) {
+		this.getMessages().set("session.logs.leave-sesion", message);
+		this.saveMessages();
+	}
+
+	public void setSession_Logs_LeaveSession(List<String> message) {
 		this.getMessages().set("session.logs.leave-sesion", message);
 		this.saveMessages();
 	}
