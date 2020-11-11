@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.github.crlshnrrq.screenshareplugin.ScreenShare;
+import com.github.crlshnrrq.screenshareplugin.ScreenShareMessages;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 
 public final class ScreenShareSessionsGUI implements Listener {
@@ -88,7 +89,7 @@ public final class ScreenShareSessionsGUI implements Listener {
 			}
 		}
 
-		if (player.hasPermission(ScreenSharePlugin.getConfig().getCommand_ViewHistoryPermission())) {
+		if (player.hasPermission(ScreenShareMessages.COMMAND_VIEW_HISTORY_PERMISSION.toString())) {
 			ItemStack historico = new ItemStack(Material.BOOK);
 			ItemMeta mHistorico = historico.getItemMeta();
 			mHistorico.setDisplayName("§aHistórico de Sessões");

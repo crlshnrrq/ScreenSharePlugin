@@ -56,32 +56,29 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerScreenShareCreate(PlayerScreenShareCreateEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ScreenSharePlugin.getConfig().getSession_Logs_InitiateSession(player.getName(), ss.getID())
-				.forEach(message -> ss.message(message));
+		ss.messages(ScreenShareMessages.SESSION_LOGS_INITIATE_SESSION.replace("<nickname>", player.getName())
+				.replace("<id>", ss.getID()).getMessages());
 		Bukkit.getOnlinePlayers().stream()
 				.filter(players -> !ss.getAllPlayersInScreenShare().contains(players.getName())
-						&& players.hasPermission(ScreenSharePlugin.getConfig().getSession_SpyPermission()))
-				.forEach(players -> ScreenSharePlugin.getConfig()
-						.getSession_Logs_InitiateSession(player.getName(), ss.getID())
-						.forEach(message -> players.sendMessage(message)));
-		ScreenSharePlugin.getConfig().getSession_InitiateSession(ss.getSuspect())
-				.forEach(message -> player.sendMessage(message));
+						&& players.hasPermission(ScreenShareMessages.SESSION_SPY_PERMISSION.toString()))
+				.forEach(players -> ScreenShareMessages.SESSION_LOGS_INITIATE_SESSION
+						.replace("<nickname>", player.getName()).replace("<id>", ss.getID()).sendMessage(players));
+		ScreenShareMessages.SESSION_INITIATE_SESSION.replace("<nickname>", ss.getSuspect()).sendMessage(player);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerScreenSharePulled(PlayerScreenSharePulledEvent event) {
 		Player player = event.getPlayer();
-		ScreenSharePlugin.getConfig().getSession_StartSession().forEach(message -> player.sendMessage(message));
+		ScreenShareMessages.SESSION_START_SESSION.sendMessage(player);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerScreenShareJoin(PlayerScreenShareJoinEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ScreenSharePlugin.getConfig().getSession_Logs_JoinSession(player.getName(), ss.getID())
-				.forEach(message -> ss.message(message));
-		ScreenSharePlugin.getConfig().getSession_JoinSession(ss.getSuspect())
-				.forEach(message -> player.sendMessage(message));
+		ss.messages(ScreenShareMessages.SESSION_LOGS_JOIN_SESSION.replace("<nickname>", player.getName())
+				.replace("<id>", ss.getID()).getMessages());
+		ScreenShareMessages.SESSION_JOIN_SESSION.replace("<nickname>", ss.getSuspect()).sendMessage(player);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
@@ -90,30 +87,27 @@ public class ScreenShareListeners implements Listener {
 		Player player = event.getPlayer();
 		Bukkit.getOnlinePlayers().stream()
 				.filter(players -> !ss.getAllPlayersInScreenShare().contains(players.getName())
-						&& players.hasPermission(ScreenSharePlugin.getConfig().getSession_SpyPermission()))
-				.forEach(players -> ScreenSharePlugin.getConfig()
-						.getSession_Logs_FinalizeSession(player.getName(), ss.getID())
-						.forEach(message -> players.sendMessage(message)));
-		ScreenSharePlugin.getConfig().getSession_Logs_FinalizeSession(player.getName(), ss.getID())
-				.forEach(message -> ss.message(message));
-		ScreenSharePlugin.getConfig().getSession_FinalizeSession(ss.getSuspect())
-				.forEach(message -> player.sendMessage(message));
+						&& players.hasPermission(ScreenShareMessages.SESSION_SPY_PERMISSION.toString()))
+				.forEach(players -> ScreenShareMessages.SESSION_LOGS_FINALIZE_SESSION
+						.replace("<nickname>", player.getName()).replace("<id>", ss.getID()).sendMessage(players));
+		ss.messages(ScreenShareMessages.SESSION_LOGS_FINALIZE_SESSION.replace("<nickname>", player.getName())
+				.replace("<id>", ss.getID()).getMessages());
+		ScreenShareMessages.SESSION_FINALIZE_SESSION.replace("<nickname>", ss.getSuspect()).sendMessage(player);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerScreenSharePushed(PlayerScreenSharePushedEvent event) {
 		Player player = event.getPlayer();
-		ScreenSharePlugin.getConfig().getSession_EndSession().forEach(message -> player.sendMessage(message));
+		ScreenShareMessages.SESSION_END_SESSION.sendMessage(player);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerScreenShareJoin(PlayerScreenShareQuitEvent event) {
 		ScreenShare ss = event.getScreenShare();
 		Player player = event.getPlayer();
-		ScreenSharePlugin.getConfig().getSession_Logs_LeaveSession(player.getName(), ss.getID())
-				.forEach(message -> ss.message(message));
-		ScreenSharePlugin.getConfig().getSession_LeaveSession(ss.getSuspect())
-				.forEach(message -> player.sendMessage(message));
+		ss.messages(ScreenShareMessages.SESSION_LOGS_LEAVE_SESSION.replace("<nickname>", player.getName())
+				.replace("<id>", ss.getID()).getMessages());
+		ScreenShareMessages.SESSION_LEAVE_SESSION.replace("<nickname>", ss.getSuspect()).sendMessage(player);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
@@ -124,8 +118,9 @@ public class ScreenShareListeners implements Listener {
 		if (ScreenShareAPI.hasScreenShare(player)) {
 			ScreenShare ss = ScreenShareAPI.getScreenShare(player);
 			event.setCancelled(true);
-			ss.message(player.getDisplayName() + ": " + event.getMessage(), ScreenSharePlugin.getConfig()
-					.getSession_ChatFormat(player.getDisplayName(), ss.getID(), event.getMessage()));
+			ss.message(player.getDisplayName() + ": " + event.getMessage(),
+					ScreenShareMessages.SESSION_CHAT_FORMAT.replace("<nickname>", player.getDisplayName())
+							.replace("<id>", ss.getID()).replace("<message>", event.getMessage()).toString());
 		}
 	}
 
@@ -133,9 +128,9 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerCommandPreproccess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
 		if (ScreenShareAPI.hasScreenShare(player)
-				&& !player.hasPermission(ScreenSharePlugin.getConfig().getCommand_Permission())) {
+				&& !player.hasPermission(ScreenShareMessages.SESSION_SPY_PERMISSION.toString())) {
 			event.setCancelled(true);
-			ScreenSharePlugin.getConfig().getSession_UseCommands().forEach(message -> player.sendMessage(message));
+			ScreenShareMessages.SESSION_USE_COMMANDS.sendMessage(player);
 		}
 	}
 
@@ -160,8 +155,7 @@ public class ScreenShareListeners implements Listener {
 		if (ScreenShareAPI.hasScreenShare(player)) {
 			ScreenShare ss = ScreenShareAPI.getScreenShare(player);
 			ScreenShareAPI.finalizeScreenShare(player, ss);
-			ScreenSharePlugin.getConfig().getSession_LogoutSession(player.getName())
-					.forEach(message -> ss.message(message));
+			ScreenShareMessages.SESSION_LOGOUT_SESSION.sendMessage(player);
 		}
 	}
 
