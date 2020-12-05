@@ -142,6 +142,10 @@ public final class ScreenShare {
 		}
 	}
 
+	public void messages(List<String> messages) {
+		messages.forEach(message -> this.message(message));
+	}
+
 	public void message(String message) {
 		this.message(message, message);
 	}

@@ -16,59 +16,60 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import com.github.crlshnrrq.screenshareplugin.ScreenShare;
 import com.github.crlshnrrq.screenshareplugin.ScreenShareAPI;
+import com.github.crlshnrrq.screenshareplugin.ScreenSharePermissions;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 
 public final class ScreenSharePlayerGUI implements Listener {
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
-		if (event.getWhoClicked() instanceof Player && event.getInventory().getName().startsWith("Informações de ")
+		if (event.getWhoClicked() instanceof Player && event.getInventory().getName().startsWith("InformaÃ§Ãµes de ")
 				&& event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta()
 				&& event.getCurrentItem().getItemMeta().hasDisplayName()) {
 			String display = event.getCurrentItem().getItemMeta().getDisplayName();
 			Player player = (Player) event.getWhoClicked();
 			event.setCancelled(true);
 
-			String nickname = event.getInventory().getName().replace("Informações de ", "");
+			String nickname = event.getInventory().getName().replace("InformaÃ§Ãµes de ", "");
 			Player target = Bukkit.getPlayer(nickname);
 			ScreenShare ss = ScreenSharePlugin.getScreenShareBySuspect(nickname);
 
-			if (display.equals("§ePuxar para ScreenShare")) {
+			if (display.equals("Â§ePuxar para ScreenShare")) {
 				if (target != null) {
 					if (ss == null)
 						ScreenShareAPI.createScreenShare(player, target);
 					else
-						player.sendMessage("§c" + target.getName() + " já está em uma ScreenShare!");
+						player.sendMessage("Â§c" + target.getName() + " jÃ¡ estÃ¡ em uma ScreenShare!");
 				} else
-					player.sendMessage("§c" + nickname + " não foi encontrado!");
+					player.sendMessage("Â§c" + nickname + " nÃ£o foi encontrado!");
 				player.closeInventory();
 			}
-			if (display.equals("§cFinalizar a ScreenShare")) {
+			if (display.equals("Â§cFinalizar a ScreenShare")) {
 				if (ss != null)
 					ScreenShareAPI.finalizeScreenShare(player, ss);
 				else
-					player.sendMessage("§cA ScreenShare já foi finalizada!");
+					player.sendMessage("Â§cA ScreenShare jÃ¡ foi finalizada!");
 				player.closeInventory();
 			}
-			if (display.equals("§aEntrar na Sessão")) {
+			if (display.equals("Â§aEntrar na SessÃ£o")) {
 				if (ss != null)
 					ScreenShareAPI.joinScreenShare(player, ss);
 				else
-					player.sendMessage("§cA ScreenShare já foi finalizada!");
+					player.sendMessage("Â§cA ScreenShare jÃ¡ foi finalizada!");
 				player.closeInventory();
 			}
-			if (display.equals("§cSair da Sessão")) {
+			if (display.equals("Â§cSair da SessÃ£o")) {
 				if (ss != null)
 					ScreenShareAPI.quitScreenShare(player, ss);
 				else
-					player.sendMessage("§cA ScreenShare já foi finalizada!");
+					player.sendMessage("Â§cA ScreenShare jÃ¡  foi finalizada!");
 				player.closeInventory();
 			}
 		}
 	}
 
 	public static void openGUI(Player player, String nickname) {
-		Inventory inv = Bukkit.createInventory(null, 54, "Informações de " + nickname);
+		Inventory inv = Bukkit.createInventory(null, 54, "InformaÃ§Ãµes de " + nickname);
 
 		ItemStack glass = new ItemStack(Material.THIN_GLASS);
 		for (int i = 0; i < 54; i++) {
@@ -80,7 +81,7 @@ public final class ScreenSharePlayerGUI implements Listener {
 		ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta mHead = (SkullMeta) head.getItemMeta();
 		mHead.setOwner(nickname);
-		mHead.setDisplayName("§6" + nickname);
+		mHead.setDisplayName("Â§6" + nickname);
 		head.setItemMeta(mHead);
 		inv.setItem(13, head);
 
@@ -90,12 +91,16 @@ public final class ScreenSharePlayerGUI implements Listener {
 				ScreenShare ss = ScreenShareAPI.getScreenShare(target);
 
 				if (ss.getAuthor().equalsIgnoreCase(player.getName())
+<<<<<<< HEAD
 						|| player.hasPermission("screenshareplugin.bypass")) {
+=======
+						|| player.hasPermission(ScreenSharePermissions.SCREENSHARE_BYPASS.toPermission())) {
+>>>>>>> refs/heads/develop
 					ItemStack finalizar = new ItemStack(Material.INK_SACK, 1, (short) 1);
 					ItemMeta mFinalizar = finalizar.getItemMeta();
-					mFinalizar.setDisplayName("§cFinalizar a ScreenShare");
+					mFinalizar.setDisplayName("Â§cFinalizar a ScreenShare");
 					ArrayList<String> lore = new ArrayList<>();
-					lore.add("§7Clique para finalizar a sessão");
+					lore.add("Â§7Clique para finalizar a sessÃ£o");
 					mFinalizar.setLore(lore);
 					finalizar.setItemMeta(mFinalizar);
 					inv.setItem(inv.firstEmpty(), finalizar);
@@ -106,18 +111,18 @@ public final class ScreenSharePlayerGUI implements Listener {
 					if (ss.getAllPlayersInScreenShare().contains(player.getName())) {
 						ItemStack sair = new ItemStack(Material.ENDER_PEARL);
 						ItemMeta mSair = sair.getItemMeta();
-						mSair.setDisplayName("§cSair da Sessão");
+						mSair.setDisplayName("Â§cSair da SessÃ£o");
 						ArrayList<String> lore = new ArrayList<>();
-						lore.add("§7Clique para sair");
+						lore.add("Â§7Clique para sair");
 						mSair.setLore(lore);
 						sair.setItemMeta(mSair);
 						inv.setItem(inv.firstEmpty(), sair);
 					} else {
 						ItemStack entrar = new ItemStack(Material.EYE_OF_ENDER);
 						ItemMeta mEntrar = entrar.getItemMeta();
-						mEntrar.setDisplayName("§aEntrar na Sessão");
+						mEntrar.setDisplayName("Â§aEntrar na SessÃ£o");
 						ArrayList<String> lore = new ArrayList<>();
-						lore.add("§7Clique para entrar");
+						lore.add("Â§7Clique para entrar");
 						mEntrar.setLore(lore);
 						entrar.setItemMeta(mEntrar);
 						inv.setItem(inv.firstEmpty(), entrar);
@@ -126,13 +131,13 @@ public final class ScreenSharePlayerGUI implements Listener {
 
 				ItemStack info = new ItemStack(Material.PAPER);
 				ItemMeta mInfo = info.getItemMeta();
-				mInfo.setDisplayName("§aInformações da Sessão");
+				mInfo.setDisplayName("Â§aInformaÃ§Ãµes da SessÃ£o");
 				ArrayList<String> infoLore = new ArrayList<>();
 				infoLore.add(" ");
-				infoLore.add(" §8» §fID da Sessão: §7" + ss.getID());
-				infoLore.add(" §8» §fIniciado em: §7" + ss.getIniciado());
-				infoLore.add(" §8» §fFinalizado em: §7" + ss.getFinalizado());
-				infoLore.add(" §8» §fEspectadores: §7" + ss.getSpectators().size());
+				infoLore.add(" Â§8Â» Â§fID da SessÃ£o: Â§7" + ss.getID());
+				infoLore.add(" Â§8Â» Â§fIniciado em: Â§7" + ss.getIniciado());
+				infoLore.add(" Â§8Â» Â§fFinalizado em: Â§7" + ss.getFinalizado());
+				infoLore.add(" Â§8Â» Â§fEspectadores: Â§7" + ss.getSpectators().size());
 				infoLore.add(" ");
 				mInfo.setLore(infoLore);
 				info.setItemMeta(mInfo);
@@ -140,7 +145,7 @@ public final class ScreenSharePlayerGUI implements Listener {
 			} else if (!player.getName().equals(nickname)) {
 				ItemStack puxar = new ItemStack(Material.NETHER_STAR);
 				ItemMeta mPuxar = puxar.getItemMeta();
-				mPuxar.setDisplayName("§ePuxar para ScreenShare");
+				mPuxar.setDisplayName("Â§ePuxar para ScreenShare");
 				puxar.setItemMeta(mPuxar);
 				inv.setItem(inv.firstEmpty(), puxar);
 			}

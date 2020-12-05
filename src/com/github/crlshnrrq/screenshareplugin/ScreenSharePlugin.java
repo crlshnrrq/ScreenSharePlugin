@@ -9,6 +9,11 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.crlshnrrq.screenshareplugin.configuration.ScreenShareConfigListeners;
+import com.github.crlshnrrq.screenshareplugin.configuration.gui.ScreenShareConfigGUI;
+import com.github.crlshnrrq.screenshareplugin.configuration.gui.ScreenShareConfigMessagesGUI;
+import com.github.crlshnrrq.screenshareplugin.configuration.gui.ScreenShareConfigPermissionGUI;
+import com.github.crlshnrrq.screenshareplugin.configuration.gui.ScreenShareConfigPermissionsGUI;
 import com.github.crlshnrrq.screenshareplugin.events.TimeSecondEvent;
 import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareHistoryGUI;
 import com.github.crlshnrrq.screenshareplugin.guis.ScreenShareInfoSessionGUI;
@@ -62,12 +67,17 @@ public final class ScreenSharePlugin {
 		Bukkit.getServer().createWorld(new WorldCreator("screenshare_world"));
 
 		PluginManager pm = Bukkit.getPluginManager();
+		pm.registerEvents(new ScreenShareConfigGUI(), getPlugin());
+		pm.registerEvents(new ScreenShareConfigMessagesGUI(), getPlugin());
+		pm.registerEvents(new ScreenShareConfigPermissionGUI(), getPlugin());
+		pm.registerEvents(new ScreenShareConfigPermissionsGUI(), getPlugin());
 		pm.registerEvents(new ScreenShareHistoryGUI(), getPlugin());
 		pm.registerEvents(new ScreenShareInfoSessionGUI(), getPlugin());
 		pm.registerEvents(new ScreenShareSessionsGUI(), getPlugin());
 		pm.registerEvents(new ScreenSharePlayerGUI(), getPlugin());
 
 		pm.registerEvents(new ScreenShareListeners(), getPlugin());
+		pm.registerEvents(new ScreenShareConfigListeners(), getPlugin());
 
 		getPlugin().getCommand("screenshare").setExecutor(new ScreenShareCommand());
 

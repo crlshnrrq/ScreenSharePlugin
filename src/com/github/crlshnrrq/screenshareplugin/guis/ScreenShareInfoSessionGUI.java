@@ -26,17 +26,17 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
 		if (event.getWhoClicked() instanceof Player
-				&& event.getInventory().getName().startsWith("Informações da Sessão #")
+				&& event.getInventory().getName().startsWith("InformaÃ§Ãµes da SessÃ£o #")
 				&& event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta()
 				&& event.getCurrentItem().getItemMeta().hasDisplayName()) {
 			String display = event.getCurrentItem().getItemMeta().getDisplayName();
 			Player player = (Player) event.getWhoClicked();
 			event.setCancelled(true);
 
-			String id = event.getInventory().getName().replace("Informações da Sessão #", "");
+			String id = event.getInventory().getName().replace("InformaÃ§Ãµes da SessÃ£o #", "");
 			ScreenShare ss = ScreenSharePlugin.getScreenShareById(id, true);
 
-			if (display.equals("§aRegistros da Sessão")) {
+			if (display.equals("Â§aRegistros da SessÃ£o")) {
 				try {
 					String content = new String();
 					for (String line : ss.getLogs()) {
@@ -46,17 +46,17 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 							content += "\n" + line;
 					}
 
-					URL url = Pastebin.pastePaste("6a32a05be10baa5380d618fff13ab968", content,
-							"Registros da Sessão #" + id);
+					URL url = Pastebin.pastePaste(ScreenSharePlugin.getConfig().getPastebinDeveloperAPIKey(), content,
+							"Registros da SessÃ£o #" + id);
 
-					player.sendMessage("§aURL do Registro: " + url);
+					player.sendMessage("Â§aURL do Registro: " + url);
 					player.closeInventory();
 				} catch (PasteException ex) {
 					ex.printStackTrace();
 				}
-			} else if (display.equals("§cExcluir a Sessão")) {
+			} else if (display.equals("Â§cExcluir a SessÃ£o")) {
 				ScreenSharePlugin.getConfig().deleteScreenShare(id);
-				player.sendMessage("§aVocê excluiu a ScreenShare #" + id);
+				player.sendMessage("Â§aVocÃª excluiu a ScreenShare #" + id);
 				player.closeInventory();
 			}
 		}
@@ -64,7 +64,7 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 
 	public static void openGUI(Player player, String id) {
 		ScreenShare ss = ScreenSharePlugin.getScreenShareById(id, true);
-		Inventory inv = Bukkit.createInventory(null, 54, "Informações da Sessão #" + ss.getID());
+		Inventory inv = Bukkit.createInventory(null, 54, "InformaÃ§Ãµes da SessÃ£o #" + ss.getID());
 
 		ItemStack glass = new ItemStack(Material.THIN_GLASS);
 		for (int i = 0; i < 54; i++) {
@@ -76,19 +76,19 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 		ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta mHead = (SkullMeta) head.getItemMeta();
 		mHead.setOwner(ss.getSuspect());
-		mHead.setDisplayName("§6" + ss.getSuspect());
+		mHead.setDisplayName("Â§6" + ss.getSuspect());
 		head.setItemMeta(mHead);
 		inv.setItem(13, head);
 
 		ItemStack info = new ItemStack(Material.PAPER);
 		ItemMeta mInfo = info.getItemMeta();
-		mInfo.setDisplayName("§aInformações da Sessão");
+		mInfo.setDisplayName("Â§aInformaÃ§Ãµes da SessÃ£o");
 		ArrayList<String> infoLore = new ArrayList<>();
 		infoLore.add(" ");
-		infoLore.add(" §8» §fID da Sessão: §7" + ss.getID());
-		infoLore.add(" §8» §fIniciado em: §7" + ss.getIniciado());
-		infoLore.add(" §8» §fFinalizado em: §7" + ss.getFinalizado());
-		infoLore.add(" §8» §fEspectadores: §7" + ss.getSpectators().size());
+		infoLore.add(" Â§8Â» Â§fID da SessÃ£o: Â§7" + ss.getID());
+		infoLore.add(" Â§8Â» Â§fIniciado em: Â§7" + ss.getIniciado());
+		infoLore.add(" Â§8Â» Â§fFinalizado em: Â§7" + ss.getFinalizado());
+		infoLore.add(" Â§8Â» Â§fEspectadores: Â§7" + ss.getSpectators().size());
 		infoLore.add(" ");
 		mInfo.setLore(infoLore);
 		info.setItemMeta(mInfo);
@@ -96,15 +96,15 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 
 		ItemStack logs = new ItemStack(Material.BOOK_AND_QUILL);
 		ItemMeta mLogs = logs.getItemMeta();
-		mLogs.setDisplayName("§aRegistros da Sessão");
-		mLogs.setLore(Arrays.asList("§7Clique para receber um URL com os registros."));
+		mLogs.setDisplayName("Â§aRegistros da SessÃ£o");
+		mLogs.setLore(Arrays.asList("Â§7Clique para receber um URL com os registros."));
 		logs.setItemMeta(mLogs);
 		inv.setItem(inv.firstEmpty(), logs);
 
 		ItemStack delete = new ItemStack(Material.INK_SACK, 1, (short) 4);
 		ItemMeta mDelete = delete.getItemMeta();
-		mDelete.setDisplayName("§cExcluir a Sessão");
-		mDelete.setLore(Arrays.asList("§7Clique para apagar a Sessão de forma permanente."));
+		mDelete.setDisplayName("Â§cExcluir a SessÃ£o");
+		mDelete.setLore(Arrays.asList("Â§7Clique para apagar a SessÃ£o de forma permanente."));
 		delete.setItemMeta(mDelete);
 		inv.setItem(inv.firstEmpty(), delete);
 
