@@ -35,6 +35,8 @@ public final class ScreenShareConfigPermissionsGUI implements Listener {
 //				openGUI(player, page - 1);
 //			if (display.equals("§aPágina Posterior"))
 //				openGUI(player, page + 1);
+			if (display.equals("§aVoltar ao Menu anterior"))
+				ScreenShareConfigGUI.openGUI(player);
 
 			if (display.startsWith("§e"))
 				ScreenShareConfigPermissionGUI.openGUI(player,
@@ -50,11 +52,11 @@ public final class ScreenShareConfigPermissionsGUI implements Listener {
 		Inventory inv = Bukkit.createInventory(null, 54, "Configurar Permissões "/* + (page < 10 ? "0" : "") + page */);
 
 //		if (page > 1) {
-//			ItemStack voltar = new ItemStack(Material.ARROW);
-//			ItemMeta mVoltar = voltar.getItemMeta();
-//			mVoltar.setDisplayName("§aPágina Anterior");
-//			voltar.setItemMeta(mVoltar);
-//			inv.setItem(45, voltar);
+		ItemStack voltar = new ItemStack(Material.ARROW);
+		ItemMeta mVoltar = voltar.getItemMeta();
+		mVoltar.setDisplayName("§aPágina Anterior");
+		voltar.setItemMeta(mVoltar);
+		inv.setItem(45, voltar);
 //		} else {
 //			ItemStack voltar = new ItemStack(Material.ARROW);
 //			ItemMeta mVoltar = voltar.getItemMeta();
@@ -82,6 +84,12 @@ public final class ScreenShareConfigPermissionsGUI implements Listener {
 			item.setItemMeta(mItem);
 			inv.setItem(inv.firstEmpty(), item);
 		}
+
+		ItemStack voltarMenu = new ItemStack(Material.ARROW);
+		ItemMeta mVoltarMenu = voltarMenu.getItemMeta();
+		mVoltarMenu.setDisplayName("§aVoltar ao Menu anterior");
+		voltarMenu.setItemMeta(mVoltarMenu);
+		inv.setItem(48, voltarMenu);
 //			}
 //				}
 
@@ -93,11 +101,11 @@ public final class ScreenShareConfigPermissionsGUI implements Listener {
 //			avancar.setItemMeta(mAvancar);
 //			inv.setItem(53, avancar);
 //		} else {
-//			ItemStack avancar = new ItemStack(Material.ARROW);
-//			ItemMeta mAvancar = avancar.getItemMeta();
-//			mAvancar.setDisplayName("§7Página Posterior");
-//			avancar.setItemMeta(mAvancar);
-//			inv.setItem(53, avancar);
+		ItemStack avancar = new ItemStack(Material.ARROW);
+		ItemMeta mAvancar = avancar.getItemMeta();
+		mAvancar.setDisplayName("§7Página Posterior");
+		avancar.setItemMeta(mAvancar);
+		inv.setItem(53, avancar);
 //		}
 
 		player.openInventory(inv);

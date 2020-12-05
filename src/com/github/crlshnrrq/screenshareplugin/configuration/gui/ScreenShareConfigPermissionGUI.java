@@ -34,6 +34,8 @@ public final class ScreenShareConfigPermissionGUI implements Listener {
 			Player player = (Player) event.getWhoClicked();
 			event.setCancelled(true);
 
+			if (display.equals("§aVoltar ao Menu anterior"))
+				ScreenShareConfigPermissionsGUI.openGUI(player);
 			if (display.equals("§aEditar Nome")) {
 				ScreenShareConfigAPI.setEdit(player,
 						new Edit<ScreenSharePermissions>(permission, ConfigModificationType.EDIT_PERMISSION_NAME));
@@ -72,6 +74,12 @@ public final class ScreenShareConfigPermissionGUI implements Listener {
 				continue;
 			inv.setItem(i, glass);
 		}
+
+		ItemStack voltarMenu = new ItemStack(Material.ARROW);
+		ItemMeta mVoltarMenu = voltarMenu.getItemMeta();
+		mVoltarMenu.setDisplayName("§aVoltar ao Menu anterior");
+		voltarMenu.setItemMeta(mVoltarMenu);
+		inv.setItem(45, voltarMenu);
 
 		ItemStack item = new ItemStack(Material.NAME_TAG);
 		ItemMeta mItem = item.getItemMeta();

@@ -34,6 +34,8 @@ public final class ScreenShareConfigMessagesGUI implements Listener {
 //				openGUI(player, page - 1);
 //			if (display.equals("§aPágina Posterior"))
 //				openGUI(player, page + 1);
+			if (display.equals("§aVoltar ao Menu anterior"))
+				ScreenShareConfigGUI.openGUI(player);
 
 			if (display.startsWith("§e") && event.getCurrentItem().getItemMeta().hasLore()) {
 				ScreenShareMessages message = ScreenShareMessages
@@ -121,6 +123,13 @@ public final class ScreenShareConfigMessagesGUI implements Listener {
 			item.setItemMeta(mItem);
 			inv.setItem(inv.firstEmpty(), item);
 		}
+
+		ItemStack voltarMenu = new ItemStack(Material.ARROW);
+		ItemMeta mVoltarMenu = voltarMenu.getItemMeta();
+		mVoltarMenu.setDisplayName("§aVoltar ao Menu anterior");
+		voltarMenu.setItemMeta(mVoltarMenu);
+		inv.setItem(48, voltarMenu);
+
 //			}
 //				}
 
