@@ -90,11 +90,7 @@ public final class ScreenShareSessionsGUI implements Listener {
 			}
 		}
 
-<<<<<<< HEAD
-		if (player.hasPermission("screenshareplugin.viewhistory")) {
-=======
 		if (player.hasPermission(ScreenSharePermissions.VIEW_HISTORY.toPermission())) {
->>>>>>> refs/heads/develop
 			ItemStack historico = new ItemStack(Material.BOOK);
 			ItemMeta mHistorico = historico.getItemMeta();
 			mHistorico.setDisplayName("§aHistórico de Sessões");
