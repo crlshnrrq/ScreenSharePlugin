@@ -24,21 +24,21 @@ public final class ScreenShareHistoryGUI implements Listener {
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
 		if (event.getWhoClicked() instanceof Player
-				&& event.getInventory().getName().startsWith("Histórico de Sessões #") && event.getCurrentItem() != null
+				&& event.getInventory().getName().startsWith("HistÃ³rico de SessÃµes #") && event.getCurrentItem() != null
 				&& event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().hasDisplayName()) {
 			String display = event.getCurrentItem().getItemMeta().getDisplayName();
-			int page = Integer.parseInt(event.getInventory().getName().replace("Histórico de Sessões #", ""));
+			int page = Integer.parseInt(event.getInventory().getName().replace("HistÃ³rico de SessÃµes #", ""));
 			Player player = (Player) event.getWhoClicked();
 			event.setCancelled(true);
 
-			if (display.equals("§aPágina Anterior"))
+			if (display.equals("Â§aPÃ¡gina Anterior"))
 				openGUI(player, page - 1);
-			if (display.equals("§aPágina Posterior"))
+			if (display.equals("Â§aPÃ¡gina Posterior"))
 				openGUI(player, page + 1);
-			if (display.equals("§aSessões em Andamento"))
+			if (display.equals("Â§aSessÃµes em Andamento"))
 				ScreenShareSessionsGUI.openGUI(player);
-			if (display.startsWith("§6Informações da Sessão #§7")) {
-				String id = display.replace("§6Informações da Sessão #§7", "");
+			if (display.startsWith("Â§6InformaÃ§Ãµes da SessÃ£o #Â§7")) {
+				String id = display.replace("Â§6InformaÃ§Ãµes da SessÃ£o #Â§7", "");
 				ScreenShareInfoSessionGUI.openGUI(player, id);
 			}
 		}
@@ -49,18 +49,18 @@ public final class ScreenShareHistoryGUI implements Listener {
 	}
 
 	public static void openGUI(Player player, int page) {
-		Inventory inv = Bukkit.createInventory(null, 54, "Histórico de Sessões #" + (page < 10 ? "0" : "") + page);
+		Inventory inv = Bukkit.createInventory(null, 54, "HistÃ³rico de SessÃµes #" + (page < 10 ? "0" : "") + page);
 
 		if (page > 1) {
 			ItemStack voltar = new ItemStack(Material.ARROW);
 			ItemMeta mVoltar = voltar.getItemMeta();
-			mVoltar.setDisplayName("§aPágina Anterior");
+			mVoltar.setDisplayName("Â§aPÃ¡gina Anterior");
 			voltar.setItemMeta(mVoltar);
 			inv.setItem(45, voltar);
 		} else {
 			ItemStack voltar = new ItemStack(Material.ARROW);
 			ItemMeta mVoltar = voltar.getItemMeta();
-			mVoltar.setDisplayName("§7Página Anterior");
+			mVoltar.setDisplayName("Â§7PÃ¡gina Anterior");
 			voltar.setItemMeta(mVoltar);
 			inv.setItem(45, voltar);
 		}
@@ -83,13 +83,13 @@ public final class ScreenShareHistoryGUI implements Listener {
 					ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 					SkullMeta mItem = (SkullMeta) item.getItemMeta();
 					mItem.setOwner(ss.getSuspect());
-					mItem.setDisplayName("§6Informações da Sessão #§7" + ss.getID());
+					mItem.setDisplayName("Â§6InformaÃ§Ãµes da SessÃ£o #Â§7" + ss.getID());
 					ArrayList<String> lore = new ArrayList<>();
 					lore.add(" ");
-					lore.add(" §8» §fSuspeito: §7" + ss.getSuspect());
-					lore.add(" §8» §fAutor: §7" + ss.getAuthor());
-					lore.add(" §8» §fIniciado em: §7" + ss.getIniciado());
-					lore.add(" §8» §fFinalizado em: §7" + ss.getFinalizado());
+					lore.add(" Â§8Â» Â§fSuspeito: Â§7" + ss.getSuspect());
+					lore.add(" Â§8Â» Â§fAutor: Â§7" + ss.getAuthor());
+					lore.add(" Â§8Â» Â§fIniciado em: Â§7" + ss.getIniciado());
+					lore.add(" Â§8Â» Â§fFinalizado em: Â§7" + ss.getFinalizado());
 					lore.add(" ");
 					mItem.setLore(lore);
 					item.setItemMeta(mItem);
@@ -100,7 +100,7 @@ public final class ScreenShareHistoryGUI implements Listener {
 
 		ItemStack sessoes = new ItemStack(Material.BOOK_AND_QUILL);
 		ItemMeta mSessoes = sessoes.getItemMeta();
-		mSessoes.setDisplayName("§aSessões em Andamento");
+		mSessoes.setDisplayName("Â§aSessÃµes em Andamento");
 		sessoes.setItemMeta(mSessoes);
 		inv.setItem(49, sessoes);
 
@@ -108,13 +108,13 @@ public final class ScreenShareHistoryGUI implements Listener {
 		if (pages > page) {
 			ItemStack avancar = new ItemStack(Material.ARROW);
 			ItemMeta mAvancar = avancar.getItemMeta();
-			mAvancar.setDisplayName("§aPágina Posterior");
+			mAvancar.setDisplayName("Â§aPÃ¡gina Posterior");
 			avancar.setItemMeta(mAvancar);
 			inv.setItem(53, avancar);
 		} else {
 			ItemStack avancar = new ItemStack(Material.ARROW);
 			ItemMeta mAvancar = avancar.getItemMeta();
-			mAvancar.setDisplayName("§7Página Posterior");
+			mAvancar.setDisplayName("Â§7PÃ¡gina Posterior");
 			avancar.setItemMeta(mAvancar);
 			inv.setItem(53, avancar);
 		}

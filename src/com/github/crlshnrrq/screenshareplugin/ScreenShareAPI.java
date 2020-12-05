@@ -25,7 +25,7 @@ public final class ScreenShareAPI {
 	public static String getCurrentTime() {
 		String[] split = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 				.format(GregorianCalendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).getTime()).split(" ");
-		return split[0] + " às " + split[1];
+		return split[0] + " Ã s " + split[1];
 	}
 
 	public static String getRandomID() {

@@ -60,7 +60,7 @@ public class ScreenShareListeners implements Listener {
 				.replace("<id>", ss.getID()).getMessages());
 		Bukkit.getOnlinePlayers().stream()
 				.filter(players -> !ss.getAllPlayersInScreenShare().contains(players.getName())
-						&& players.hasPermission(ScreenShareMessages.SESSION_SPY_PERMISSION.toString()))
+						&& players.hasPermission(ScreenSharePermissions.SPY_SESSIONS.toPermission()))
 				.forEach(players -> ScreenShareMessages.SESSION_LOGS_INITIATE_SESSION
 						.replace("<nickname>", player.getName()).replace("<id>", ss.getID()).sendMessage(players));
 		ScreenShareMessages.SESSION_INITIATE_SESSION.replace("<nickname>", ss.getSuspect()).sendMessage(player);
@@ -87,7 +87,7 @@ public class ScreenShareListeners implements Listener {
 		Player player = event.getPlayer();
 		Bukkit.getOnlinePlayers().stream()
 				.filter(players -> !ss.getAllPlayersInScreenShare().contains(players.getName())
-						&& players.hasPermission(ScreenShareMessages.SESSION_SPY_PERMISSION.toString()))
+						&& players.hasPermission(ScreenSharePermissions.SPY_SESSIONS.toPermission()))
 				.forEach(players -> ScreenShareMessages.SESSION_LOGS_FINALIZE_SESSION
 						.replace("<nickname>", player.getName()).replace("<id>", ss.getID()).sendMessage(players));
 		ss.messages(ScreenShareMessages.SESSION_LOGS_FINALIZE_SESSION.replace("<nickname>", player.getName())
@@ -128,7 +128,7 @@ public class ScreenShareListeners implements Listener {
 	private void onPlayerCommandPreproccess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
 		if (ScreenShareAPI.hasScreenShare(player)
-				&& !player.hasPermission(ScreenShareMessages.SESSION_SPY_PERMISSION.toString())) {
+				&& !player.hasPermission(ScreenSharePermissions.USE_COMMAND.toPermission())) {
 			event.setCancelled(true);
 			ScreenShareMessages.SESSION_USE_COMMANDS.sendMessage(player);
 		}
